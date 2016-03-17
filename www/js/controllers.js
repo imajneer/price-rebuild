@@ -298,6 +298,35 @@ $scope.login = function(provider) {
   }
 })
 
+.controller('filtersCtrl',function($scope,$rootScope,$state) {
+        
+    $scope.slider = {
+        min: 5,
+        max: 1000,
+        options: {
+            floor: 5,
+            ceil: 1000,
+            step: 5
+        }
+    };
+    $rootScope.min_price = 5;
+    $rootScope.max_price = 1000;
+
+    $scope.applyFilters = function() {
+        $rootScope.min_price = $scope.slider.min;
+        $rootScope.max_price = $scope.slider.max;
+        $state.go($rootScope.previousState);
+        $rootScope.refresh();
+    }
+
+    $scope.cancelFilters = function() {
+        $scope.slider.min = $rootScope.min_price;
+        $scope.slider.max = $rootScope.max_price;
+        $state.go($rootScope.previousState);
+    }
+
+})
+
 .controller('shareCtrl',['$scope',function($scope) {
 
 }])
