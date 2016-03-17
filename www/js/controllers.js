@@ -1,4 +1,3 @@
-
 angular.module('app.controllers', ['app.services','ngLodash','truncate','ngCordova'])
 
 .controller('heartCtrl',function($scope,$rootScope,Favs,lodash) {
@@ -55,14 +54,12 @@ angular.module('app.controllers', ['app.services','ngLodash','truncate','ngCordo
         exp_month: '12',
         exp_year: '19'
     };
-	
-	$rootScope.$on('$stateChangeSuccess', function (ev, to, toParams, from, fromParams) {
-		console.log('loaded state');
-		console.log(from);
-		$rootScope.fromState = from;
-   //assign the "from" parameter to something
-});
-	        
+	$scope.goBack = function() {
+	console.log('getting state...');
+	console.log($rootScope.previousState);
+		$state.go($rootScope.previousState);
+	}
+    
     $scope.buyNow = function() {
         console.log('buying now!');
     };
@@ -78,10 +75,6 @@ angular.module('app.controllers', ['app.services','ngLodash','truncate','ngCordo
             console.log(e);
         });
 	});
-	
-	$scope.goBack = function() { //load previous state
-		$state.go($rootScope.fromState);
-	}
 	
 	    $scope.openSharing = function(product){
       console.log('Sharing.....')
@@ -279,8 +272,7 @@ $scope.login = function(provider) {
   }
 
   $scope.openProduct = function(product) {
-    $scope.loadTimeout = false
-
+    $scope.loadTimeout = false;
     $ionicLoading.show();
     $rootScope.prodId = product.itemID ? product.itemID : (product.id ? product.id : product.pk);
     console.log(product);

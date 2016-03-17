@@ -24,6 +24,14 @@ angular.module('app.feedCtrl',['app.services','ngLodash','ngCordova'])
     $scope.$on('$ionicView.afterEnter', function(){
 
      });
+     
+     $rootScope.$on('$stateChangeStart', function (ev, to, toParams, from, fromParams) {
+		console.log('loaded state');
+		console.log(from);
+		$rootScope.previousState = from;
+   //assign the "from" parameter to something
+});
+
 
     $ionicPlatform.ready(function(){
         console.log('platform ready...');
