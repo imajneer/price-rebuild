@@ -251,8 +251,9 @@ productDetails.html
 /* header */
 .prod-details {
   width: 85%;
-  font-size: 13px !important;
+  font-size: 12px !important;
   font-size: 300 !important;
+  text-transform: uppercase !important;
 }
 
 .det-close {
@@ -270,8 +271,8 @@ productDetails.html
 
 .photo-image img {
   position: absolute;
-   filter: contrast(2);
-  -webkit-filter: contrast(2);
+   filter: contrast(1);
+  -webkit-filter: contrast(1);
   left: 50%;
   top: 50%;
   height: auto;
@@ -330,6 +331,8 @@ productDetails.html
 
 .actual h1 {
   margin: 0;
+  font-size: 12.5vw;
+  font-weight: 300;
 }
 
 .simulation {
@@ -339,12 +342,23 @@ productDetails.html
   color: #999;
 }
 
+.getit {
+	margin-top: -5px !important;
+	margin-bottom: 40px !important;
+}
+
 /* browse similar */
+.browse-similar {
+	margin-top: 25px;
+}
+
 .browse-similar h5 {
   text-transform: uppercase;
   font-size: 1.5em;
-  margin-left: 2%;
   color: #555;
+  margin-bottom: 15px;
+  font-weight: 200;
+  text-align: center;
 }
 
 .browse-similar .row {
@@ -353,17 +367,22 @@ productDetails.html
 
 .browse-similar .hscroller {
   padding: 0;
-  margin-bottom: 20px;
 }
 
 .browse-similar .hscroller-card {
-  background-color: #fff;
+  background-color: transparent;
 }
 
 .browse-similar .hscroller-label {
   color: #000 !important;
   overflow: hidden;
   line-height: 12px !important;
+  font-szoe: 10px;
+  height: 14px !important;
+}
+
+.browse-similar .hscroller-card img {
+	border-radius: 50%;
 }
 
 /* buy button */
