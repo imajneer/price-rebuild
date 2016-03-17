@@ -353,7 +353,7 @@ productDetails.html
 
 .browse-similar h5 {
   text-transform: uppercase;
-  font-size: 1.5em;
+  font-size: 1.6em;
   color: #555;
   margin-bottom: 15px;
   font-weight: 200;
@@ -370,6 +370,7 @@ productDetails.html
 
 .browse-similar .hscroller-card {
   background-color: transparent;
+  margin: 0 !important;
 }
 
 .browse-similar .hscroller-label {
@@ -381,7 +382,7 @@ productDetails.html
 }
 
 .browse-similar .hscroller-card img {
-	border-radius: 50%;
+
 }
 
 /* buy button */
