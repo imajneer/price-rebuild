@@ -13,11 +13,6 @@
         "cordova-plugin-device": {
             "PACKAGE_NAME": "com.LogicSquare.Price12"
         },
-        "com.phonegap.plugins.facebookconnect": {
-            "APP_ID": "584320658404604",
-            "APP_NAME": "Price",
-            "PACKAGE_NAME": "com.LogicSquare.Price12"
-        },
         "cordova-plugin-console": {
             "PACKAGE_NAME": "com.LogicSquare.Price12"
         },
@@ -34,9 +29,6 @@
             "PACKAGE_NAME": "com.LogicSquare.Price12"
         },
         "cordova-plugin-inappbrowser": {
-            "PACKAGE_NAME": "com.LogicSquare.Price12"
-        },
-        "cordova-plugin-themeablebrowser": {
             "PACKAGE_NAME": "com.LogicSquare.Price12"
         }
     },
