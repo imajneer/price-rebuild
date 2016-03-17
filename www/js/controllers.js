@@ -199,7 +199,7 @@ $scope.login = function(provider) {
   console.log('loaded feedItemCtrl...');
   $scope.loadTimeout = false;
 
-  $scope.buyNow = function(product){
+  $scope.buyNow = function(product){ //this should also be moved to a util singleton
     console.log('Buying now...')
     backImg = 'img/back.png'
     if(ionic.Platform.isIOS())
@@ -269,7 +269,7 @@ $scope.login = function(provider) {
       $ionicScrollDelegate.$getByHandle('suggestionScroller').scrollTo(0,0,false);
   }
 
-  $scope.openProduct = function(product) {
+  $scope.openProduct = function(product) { //this needs to be moved to a util singleton object
     $scope.loadTimeout = false;
     $ionicLoading.show();
     $rootScope.previousState = $state.current.name;
