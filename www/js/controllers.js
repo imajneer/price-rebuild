@@ -55,8 +55,6 @@ angular.module('app.controllers', ['app.services','ngLodash','truncate','ngCordo
         exp_year: '19'
     };
 	$scope.goBack = function() {
-	console.log('getting state...');
-	console.log($rootScope.previousState);
 		$state.go($rootScope.previousState);
 	}
     
@@ -274,6 +272,7 @@ $scope.login = function(provider) {
   $scope.openProduct = function(product) {
     $scope.loadTimeout = false;
     $ionicLoading.show();
+    $rootScope.previousState = $state.current.name;
     $rootScope.prodId = product.itemID ? product.itemID : (product.id ? product.id : product.pk);
     console.log(product);
     console.log('opening product with id: ' + $rootScope.prodId);
