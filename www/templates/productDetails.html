@@ -3,7 +3,7 @@
       <div class="modal">
         <header class="bar bar-header bar-dark">
           <h1 class="title prod-details">{{currentProduct.title | characters:45}}</h1>
-          <div class="button button-clear" ng-click="modal.hide()"><span class="det-close ion-close"></span></div>
+          <div class="button button-clear" ng-click="goBack()"><span class="det-close ion-close"></span></div>
         </header>
 
         <ion-content overflow-scroll="true" padding="true" class="has-header" delegate-handle="modalContent">
@@ -30,7 +30,7 @@
         <div class="product-info">
             <div class="prices row">
                 <div class="retail col col-25"><div ng-show='currentProduct.amount_saved > 0'>Retail: <br><s>{{currentProduct.price + currentProduct.amount_saved | currency : $ : 2}}</s></div></div>
-                <div class="actual col col-50" >Our Price:<br><h1>$<span  pr-numerator=true data-price='{{currentProduct.price}}' data-retail='{{currentProduct.price + currentProduct.amount_saved}}'>{{currentProduct.price | currency : $ : 2}}</span></h1></div>
+                <div class="actual col col-50" >Our Price:<br><h1><span  pr-numerator=true data-price='{{currentProduct.price}}' data-retail='{{currentProduct.price + currentProduct.amount_saved}}'>{{currentProduct.price | currency : $ : 2}}</span></h1></div>
                 <div class="savings col col-25"><div ng-show='currentProduct.amount_saved > 0'>Savings: <br>{{currentProduct.amount_saved | currency : $ : 2}}</div></div>
             </div>
             <div class="simulation row">

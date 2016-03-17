@@ -95,12 +95,17 @@ angular.module('app.routes', [])
     }
   })
 
-  .state('tabs.item', {
-      url: 'product',
+  .state('item', {
+      url: 'item',
       templateUrl: 'templates/productDetails.html',
       controller: 'itemViewCtrl'
     })
 
+	.state('filters', {
+		url: 'filters',
+		templateUrl: 'templates/filters.html',
+		controller: 'filtersCtrl'
+	})
 
 
 $urlRouterProvider.otherwise('feed')

@@ -85,11 +85,11 @@ angular.module('app.controllers', ['app.services','ngLodash','truncate','ngIOS9U
         $http.get($rootScope.hostUrl + '/item-details/' + productId+'/').then(function(res) {
             console.log('should get item data...');
             console.log(res);
-            // $rootScope.currentProduct = res.data;
-            $scope.currentProduct = res.data;
-            $scope.currentProduct.isFavorite = Favs.contains($scope.currentProduct.id);
+            $rootScope.currentProduct = res.data;
+            $rootScope.currentProduct.isFavorite = Favs.contains($scope.currentProduct.id);
             resetProductModal();
-            $scope.modal.show();
+            $state.go('item');
+//             $scope.modal.show();
 
         })
 
@@ -100,14 +100,7 @@ angular.module('app.controllers', ['app.services','ngLodash','truncate','ngIOS9U
         });
 */
 
-        $http.get($rootScope.hostUrl + '/item/similar-category/' + productId + '/').then(function(data) {
-            // $rootScope.currentSuggestions = data.data;
-            $scope.currentSuggestions = data.data;
-            console.log(data.data);
-            $ionicLoading.hide();
-        },function(e) {
-            console.log(e);
-        });
+
 
     };
 
@@ -199,24 +192,7 @@ angular.module('app.controllers', ['app.services','ngLodash','truncate','ngIOS9U
         console.log('selected category: ' + $scope.catNames[idx].name);
         $scope.setCategory($scope.catNames[idx].name);
     }
-    $scope.openSharing = function(product){
-      console.log('Sharing.....')
-      $scope.shareModal.show();
-    };
 
-    $scope.facebookShare = function(product){
-      console.log('Sharing to fb...');
-      window.plugins.socialsharing.shareViaFacebook(product.title, product.photo_set[0].url_large, null /* url */, function() {console.log('share ok')}, function(errormsg){alert(errormsg)})
-    };
-    $scope.twitterShare = function(product){
-      window.plugins.socialsharing.shareViaTwitter(product.title, product.photo_set[0].url_large, null /* url */, function() {console.log('share ok')}, function(errormsg){alert(errormsg)})
-    };
-    $scope.instagramShare = function(product){
-      window.plugins.socialsharing.shareViaInstagram(product.title, product.photo_set[0].url_large, null /* url */, function() {console.log('share ok')}, function(errormsg){alert(errormsg)})
-    };
-    $scope.pintrestShare = function(product){
-      window.plugins.socialsharing.shareViaPinterest(product.title, product.photo_set[0].url_large, null /* url */, function() {console.log('share ok')}, function(errormsg){alert(errormsg)})
-    };
 
     $scope.categories = PriceAPI.categories;
     console.log($scope.categories);
@@ -270,19 +246,62 @@ angular.module('app.controllers', ['app.services','ngLodash','truncate','ngIOS9U
     }
 })
 
-.controller('itemViewCtrl',['$stateParams',function($scope,$stateParams) {
+.controller('itemViewCtrl',function($scope,$stateParams,$ionicLoading,$http,$rootScope,$state) {
+	
     $scope.card = {
         number: '4242424242424242',
         cvc: '123',
         exp_month: '12',
         exp_year: '19'
     };
-
+	
+	$rootScope.$on('$stateChangeSuccess', function (ev, to, toParams, from, fromParams) {
+		console.log('loaded state');
+		console.log(from);
+		$rootScope.fromState = from;
+   //assign the "from" parameter to something
+});
+	        
     $scope.buyNow = function() {
         console.log('buying now!');
     };
     console.log('loaded item view controller');
-}])
+    
+    $scope.$on('$ionicView.beforeEnter',function() {
+		$http.get($rootScope.hostUrl + '/item/similar-category/' + $rootScope.prodId + '/').then(function(data) {
+            // $rootScope.currentSuggestions = data.data;
+            $scope.currentSuggestions = data.data;
+            console.log(data.data);
+            $ionicLoading.hide();
+        },function(e) {
+            console.log(e);
+        });
+	});
+	
+	$scope.goBack = function() { //load previous state
+		$state.go($rootScope.fromState);
+	}
+	
+	    $scope.openSharing = function(product){
+      console.log('Sharing.....')
+      $scope.shareModal.show();
+    };
+
+    $scope.facebookShare = function(product){
+      console.log('Sharing to fb...');
+      window.plugins.socialsharing.shareViaFacebook(product.title, product.photo_set[0].url_large, null /* url */, function() {console.log('share ok')}, function(errormsg){alert(errormsg)})
+    };
+    $scope.twitterShare = function(product){
+      window.plugins.socialsharing.shareViaTwitter(product.title, product.photo_set[0].url_large, null /* url */, function() {console.log('share ok')}, function(errormsg){alert(errormsg)})
+    };
+    $scope.instagramShare = function(product){
+      window.plugins.socialsharing.shareViaInstagram(product.title, product.photo_set[0].url_large, null /* url */, function() {console.log('share ok')}, function(errormsg){alert(errormsg)})
+    };
+    $scope.pinterestShare = function(product){
+      window.plugins.socialsharing.shareViaPinterest(product.title, product.photo_set[0].url_large, null /* url */, function() {console.log('share ok')}, function(errormsg){alert(errormsg)})
+    };
+
+})
 
 .controller('WelcomeCtrl',function($rootScope,$scope,$state,localStorageService,$cordovaFacebook,$http) {
     console.log('loaded welcome controller!');
@@ -387,12 +406,6 @@ $scope.login = function(provider) {
 
   console.log('loaded feedItemCtrl...');
   $scope.loadTimeout = false;
-  $ionicModal.fromTemplateUrl('templates/productDetails.html', function($ionicModal) {
-      $scope.modal = $ionicModal;
-  }, {
-      scope: $scope,
-      animation: 'slide-in-up'
-  });
 
   $scope.buyNow = function(product){
     console.log('Buying now...')
@@ -468,9 +481,9 @@ $scope.login = function(provider) {
     $scope.loadTimeout = false
 
     $ionicLoading.show();
-    var productId = product.itemID ? product.itemID : (product.id ? product.id : product.pk);
+    $rootScope.prodId = product.itemID ? product.itemID : (product.id ? product.id : product.pk);
     console.log(product);
-    console.log('opening product with id: ' + productId);
+    console.log('opening product with id: ' + $rootScope.prodId);
     $scope.loadTimeout = false;
 
     setTimeout(function(){
@@ -480,29 +493,16 @@ $scope.login = function(provider) {
     }, 5000);
     $scope.itemLoaded = false
     $scope.loadTimeout = false
-    $http.get($rootScope.hostUrl + '/item-details/' + productId+'/').then(function(res) {
+    $http.get($rootScope.hostUrl + '/item-details/' + $rootScope.prodId+'/').then(function(res) {
       console.log('should get item data...');
       console.log(res);
       // $rootScope.currentProduct = res.data;
-      $scope.currentProduct = res.data;
-      resetProductModal();
-      $scope.modal.show();
+      $rootScope.currentProduct = res.data;
+      $rootScope.$broadcast('item.open');
+      $state.go('item');
       $scope.itemLoaded = true
-    })
-
-
-    PriceAPI.item.get({id: productId},function(data) {
     });
-
-    $http.get($rootScope.hostUrl + '/item/similar-category/' + productId + '/').then(function(data) {
-        // $rootScope.currentSuggestions = data.data;
-        $scope.currentSuggestions = data.data;
-        console.log(data.data);
-        $ionicLoading.hide();
-    },function(e) {
-        console.log(e);
-    });
-
+    
   }
 })
 
