@@ -4,9 +4,11 @@ angular.module('app.services', ['ngResource','LocalStorageModule','ngLodash'])
 .factory('PriceAPI',function($resource,$rootScope,$http,lodash,Favs) {
 
     $rootScope.currentGender = 'male';
+
+    $rootScope.gender = $rootScope.gender ? $rootScope.gender : 'male' 
      var catImg = [];
     for(i = 0; i < 6; i++)
-        catImg.push('img/cats/' + $rootScope.currentGender + '/img' + (i+1).toString() + '.svg');
+        catImg.push('img/cats/' + $rootScope.gender + '/img' + (i+1).toString() + '.svg');
     return {
         item: $resource('http://staging12.getpriceapp.com' + '/item-details/:id/'),
         items: items,
@@ -22,7 +24,7 @@ angular.module('app.services', ['ngResource','LocalStorageModule','ngLodash'])
                 'category' : $rootScope.currentCategory, //$rootScope.category
                 'page': $rootScope.page_no,
                 'show_by': 16,
-                'type' : 'male' //$rootScope.gender
+                'type' : $rootScope.gender
 
             }
         })},
@@ -80,7 +82,7 @@ angular.module('app.services', ['ngResource','LocalStorageModule','ngLodash'])
                 'category' : $rootScope.currentCategory ? $rootScope.currentCategory : '', //$rootScope.category
                 'page': $rootScope.page_no ? $rootScope.page_no : 1,
                 'show_by': '20',
-                'type' : 'male', //$rootScope.currentGender ? $rootScope.currentGender : 'female', //$rootScope.gender
+                'type' : $rootScope.gender,
                 'sort' : $rootScope.sortBy ? $rootScope.sortBy : ''
                  //defaults to recently added
 

@@ -286,7 +286,9 @@ angular.module('app.controllers', ['app.services','ngLodash','truncate','ngIOS9U
 
 .controller('WelcomeCtrl',function($rootScope,$scope,$state,localStorageService,$cordovaFacebook,$http) {
     console.log('loaded welcome controller!');
-
+    $ionicPlatform.ready(function(){
+      $rootScope.currentGender = 'male'
+    })
     $scope.loginFacebook = function() {
         $cordovaFacebook.login(["public_profile", "email"])
     .then(function(success) {
@@ -301,7 +303,7 @@ angular.module('app.controllers', ['app.services','ngLodash','truncate','ngIOS9U
             console.log(success);
             localStorageService.set('fullName',success.name);
             $rootScope.user.fullName = success.name;
-
+            $rootScope.gender = success.gender;
             $state.go('tabs.feed');
         }, function (error) {
             // error
