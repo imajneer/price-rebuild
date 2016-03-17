@@ -1,5 +1,5 @@
 
-angular.module('app.controllers', ['app.services','ngLodash','truncate','ngIOS9UIWebViewPatch','ngCordova','app.directives','app.feedCtrl'])
+angular.module('app.controllers', ['app.services','ngLodash','truncate','ngCordova'])
 
 .controller('heartCtrl',function($scope,$rootScope,Favs,lodash) {
 

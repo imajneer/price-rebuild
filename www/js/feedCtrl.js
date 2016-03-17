@@ -1,4 +1,4 @@
-angular.module('app.feedCtrl',['app.services','ngLodash','ngCordova','app.directives'])
+angular.module('app.feedCtrl',['app.services','ngLodash','ngCordova'])
 .controller('feedCtrl',function($scope,$rootScope,$state,$ionicModal,$q,$filter,lodash,$ionicPlatform,PriceAPI,$ionicActionSheet,$ionicScrollDelegate,$http,localStorageService,$timeout,$ionicLoading,Favs) {
 	
 	 console.log('loaded feed controller...');
