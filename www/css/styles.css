@@ -292,13 +292,18 @@ productDetails.html
 
 /* social */
 .social-icons {
-  font-size: 25px;
-  color: #ddd;
-  margin: -40px 0 0 0;
+  font-size: 55px;
+  color: #999;
+  margin: -70px 0 0 -45px;
   position: absolute;
 }
 .social-icons a{
   z-index: 99999;
+  margin: 0 5px !important;
+}
+
+.social-icons .feed-heart {
+	font-size: 45px !important;
 }
 
 /* prices/productInfo */

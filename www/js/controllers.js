@@ -199,7 +199,7 @@ angular.module('app.controllers', ['app.services','ngLodash','truncate','ngIOS9U
         $scope.setCategory($scope.catNames[idx].name);
     }
     $scope.openSharing = function(product){
-      console.log('Sharing.....')
+      console.log('Sharing.....');
       $scope.shareModal.show();
     };
 
