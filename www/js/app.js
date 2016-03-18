@@ -46,8 +46,39 @@ angular.module('app', ['ionic','ionic.service.core', 'app.controllers', 'app.rou
 //   stripeProvider.setPublishableKey('pk_test_aKantRCo8oXwL3FxinYqdEyn');
 
 }])
-.directive('prUtil',function($rootScope) {
+.directive('prUtil',function($rootScope,$scope) {
     //insert common functions here
+    return {
+	 	openProduct: openProduct
+    }
+    function openProduct(product) {
+	     $scope.loadTimeout = false;
+    $ionicLoading.show();
+    $rootScope.previousState = $state.current.name;
+    $rootScope.prodId = product.itemID ? product.itemID : (product.id ? product.id : product.pk);
+    console.log(product);
+    console.log('opening product with id: ' + $rootScope.prodId);
+    $scope.loadTimeout = false;
+
+    setTimeout(function(){
+      if(!$scope.itemLoaded){
+        $scope.loadTimeout = true
+      }
+    }, 5000);
+    $scope.itemLoaded = false
+    $scope.loadTimeout = false
+    $http.get($rootScope.hostUrl + '/item-details/' + $rootScope.prodId+'/').then(function(res) {
+      console.log('should get item data...');
+      console.log(res);
+      // $rootScope.currentProduct = res.data;
+      $rootScope.currentProduct = res.data;
+      $rootScope.$broadcast('item.open');
+      $state.go('item');
+      $scope.itemLoaded = true
+    });
+    
+  }
+    }
     $rootScope.range = function(min, max, step) {
     step = step || 1;
     var input = [];

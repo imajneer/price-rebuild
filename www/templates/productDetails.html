@@ -1,12 +1,12 @@
 
-    <ion-view title="Product Details">
+    <ion-view title="Product Details" cache-view="false">
       <div class="modal">
         <header class="bar bar-header bar-dark">
           <h1 class="title prod-details">{{currentProduct.title | characters:45}}</h1>
           <div class="button button-clear" ng-click="goBack()"><span class="det-close ion-close"></span></div>
         </header>
 
-        <ion-content overflow-scroll="true" padding="true" class="has-header" delegate-handle="modalContent">
+        <ion-content overflow-scroll="true" padding="false" class="has-header" delegate-handle="modalContent">
           <div ng-show='loadTimeout'><p class='text-danger'>Loading Error... Please check back later</p></div>
           <div ng-show='!loadTimeout'>
             <ion-slide-box>
