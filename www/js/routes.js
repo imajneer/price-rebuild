@@ -27,37 +27,35 @@ angular.module('app.routes', [])
 
     })
     
-/*
-      .state('filterprice', {
-      url: '/filterprice',
-      templateUrl: 'templates/filter-price.html',
-      controller: 'fPriceCtrl'
+      .state('filter.price', {
+      url: '/filter/price',
+      templateUrl: 'templates/filter/price.html',
+      controller: 'priceCtrl'
     })
     
-      .state('filtersize', {
-      url: '/filtersize',
-      templateUrl: 'templates/filter-size.html',
-      controller: 'fSizeCtrl'
+      .state('filter.size', {
+      url: '/filter/size',
+      templateUrl: 'templates/filter/size.html',
+      controller: 'sizeCtrl'
     })
     
-      .state('filtercategory', {
-      url: '/filtercategory',
-      templateUrl: 'templates/filter-category.html',
-      controller: 'fCatCtrl'
+      .state('filter.category', {
+      url: '/filter/category',
+      templateUrl: 'templates/filter/category.html',
+      controller: 'catCtrl'
     })
     
-      .state('filtercolor', {
-      url: '/filtercolor',
-      templateUrl: 'templates/filter-color.html',
-      controller: 'fColorCtrl'
+      .state('filter.color', {
+      url: '/filter/color',
+      templateUrl: 'templates/filter/color.html',
+      controller: 'colorCtrl'
     })
     
-      .state('filtercondition', {
-      url: '/filtercondition',
-      templateUrl: 'templates/filter-condition.html',
-      controller: 'fCondCtrl'
+      .state('filter.condition', {
+      url: '/filter/condition',
+      templateUrl: 'templates/filter/condition.html',
+      controller: 'condCtrl'
     })
-*/
 
   .state('tabs', {
     url: '/',
