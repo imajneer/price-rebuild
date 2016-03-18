@@ -63,5 +63,16 @@
         },
         "is_top_level": true,
         "variables": {}
+    },
+    "com.phonegap.plugins.facebookconnect": {
+        "source": {
+            "type": "local",
+            "path": "src/Facebook"
+        },
+        "is_top_level": true,
+        "variables": {
+            "APP_ID": "584320658404604",
+            "APP_NAME": "Price"
+        }
     }
 }

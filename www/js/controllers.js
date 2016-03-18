@@ -1,4 +1,4 @@
-angular.module('app.controllers', ['app.services','ngLodash','truncate','ngCordova'])
+angular.module('app.controllers', ['app.services','ngLodash','truncate','ngCordova','app.common'])
 
 .controller('heartCtrl',function($scope,$rootScope,Favs,lodash) {
 
@@ -46,8 +46,8 @@ angular.module('app.controllers', ['app.services','ngLodash','truncate','ngCordo
     }
 })
 
-.controller('itemViewCtrl',function($scope,$stateParams,$ionicLoading,$http,$rootScope,$state) {
-	
+.controller('itemViewCtrl',function($scope,$stateParams,$ionicLoading,$http,$rootScope,$state,Util) {
+		
     $scope.card = {
         number: '4242424242424242',
         cvc: '123',
@@ -194,8 +194,8 @@ $scope.login = function(provider) {
 
 })
 
-.controller('feedItemCtrl',function($rootScope,$scope,$state,$ionicLoading,$scope,$http,PriceAPI,$ionicModal,$ionicScrollDelegate, $cordovaInAppBrowser) {
-
+.controller('feedItemCtrl',function($rootScope,$scope,$state,$ionicLoading,$scope,$http,PriceAPI,$ionicModal,$ionicScrollDelegate, $cordovaInAppBrowser,Util) {
+	
   console.log('loaded feedItemCtrl...');
   $scope.loadTimeout = false;
 
