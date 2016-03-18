@@ -1,4 +1,4 @@
-angular.module('app.routes', [])
+angular.module('app.routes',[])
 
 .config(function($stateProvider, $urlRouterProvider) {
 
@@ -26,8 +26,13 @@ angular.module('app.routes', [])
       controller: 'ShippingCtrl'
 
     })
+    .state('filter', {
+      url: '/filter',
+      templateUrl: 'templates/filter/menu.html'
+    })
     
-      .state('filter.price', {
+    
+    .state('filter.price', {
       url: '/filter/price',
       templateUrl: 'templates/filter/price.html',
       controller: 'priceCtrl'

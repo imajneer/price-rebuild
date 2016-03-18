@@ -95,7 +95,7 @@ angular.module('app.controllers', ['app.services','ngLodash','truncate','ngCordo
 
 })
 
-.controller('WelcomeCtrl',function($rootScope,$scope,$state,localStorageService,$cordovaFacebook,$http) {
+.controller('WelcomeCtrl',function($rootScope,$scope,$state,localStorageService,$cordovaFacebook,$http,$ionicPlatform ) {
     console.log('loaded welcome controller!');
     $ionicPlatform.ready(function(){
       $rootScope.currentGender = 'male'
