@@ -74,5 +74,14 @@
             "APP_ID": "584320658404604",
             "APP_NAME": "Price"
         }
+    },
+    "nl.x-services.plugins.socialsharing": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Telerik-Verified-Plugins/SocialSharing",
+            "subdir": "."
+        },
+        "is_top_level": true,
+        "variables": {}
     }
 }
