@@ -1,7 +1,7 @@
 angular.module('app.services', ['ngResource','LocalStorageModule','ngLodash'])
 
 
-.factory('PriceAPI',function($resource,$rootScope,$http,lodash,Favs) {
+.factory('PriceAPI',function($resource,$rootScope,$http,lodash,Favs,$window) {
 
     return {
         item: $resource('http://staging12.getpriceapp.com' + '/item-details/:id/'),
@@ -9,7 +9,8 @@ angular.module('app.services', ['ngResource','LocalStorageModule','ngLodash'])
         suggestions: $resource('http://staging12.getpriceapp.com' + '/item/similar-category/:id/'),
         suggestionstoo: function(id) { $http.get('http://staging12.getpriceapp.com' + '/item/similar-category/' + id + '/')
         },
-        categories: categories 
+        categories: categories,
+        auth: auth
     }
     
     function categories() {
@@ -98,6 +99,37 @@ angular.module('app.services', ['ngResource','LocalStorageModule','ngLodash'])
                 console.log(e);
             });
 
+    }
+    
+    function auth(user) {
+	     //user auth call
+             $.ajax({
+            url: "http://staging12.getpriceapp.com/klutter/ajax-auth/facebook/",
+            type: "POST",
+            dataType: "json",
+            data: user,
+            success: function(data) {
+	            localStorageService.set('priceId',data.id);
+	            localStorageService.set('priceToken',data.token);
+	            $window.alert(data.id);
+                console.log('got data...');
+                var getitemdata = JSON.stringify(data);
+                //alert(JSON.stringify(data))
+
+
+
+
+            },
+
+            error: function(xhr, status, error) {
+                console.log(status);
+                // alert(xhr.status);
+                //alert(error);
+                //alert(xhr.responseText);
+            }
+
+
+        }); //end of ajax call
     }
 
 })

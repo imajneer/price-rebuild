@@ -106,6 +106,8 @@ angular.module('app.controllers', ['app.services','ngLodash','truncate','ngCordo
             localStorageService.set('userId',success.authResponse.userID);
             $rootScope.user.id = localStorageService.get('userId');
             
+
+            
 			$cordovaFacebook.api('/me?fields=email,gender,name,age_range,location&access_token='+success.authResponse.accessToken).then(
             function(response) {
 	           localStorageService.set('fullName',response.name);
@@ -117,7 +119,18 @@ angular.module('app.controllers', ['app.services','ngLodash','truncate','ngCordo
 			   localStorageService.set('gender',response.gender);
 			   $rootScope.user.gender = response.gender;
 			   localStorageService.set('location',response.location.name);
-			   $rootScope.user.location = response.location.name;
+			   $rootScope.user.location = response.location;
+			   //auth call to get user id
+			   //this doesn't work yet
+	/*
+		   PriceAPI.auth( {
+	           access_token: $scope.access_token,
+	           backend: 'facebook',
+	           name: response.name,
+	           user_id: $rootScope.user.id,
+	           email: response.email
+           });
+*/
 			   
 			},
             function(error) {
