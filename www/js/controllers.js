@@ -95,9 +95,7 @@ angular.module('app.controllers', ['app.services','ngLodash','truncate','ngCordo
 
 .controller('WelcomeCtrl',function($rootScope,$scope,$state,localStorageService,$cordovaFacebook,$http,$ionicPlatform,PriceAPI,$window) {
     console.log('loaded welcome controller!');
-    $ionicPlatform.ready(function(){
-      $rootScope.currentGender = 'male'
-    })
+
     $scope.loginFacebook = function() {
     	$cordovaFacebook.login(["public_profile", "email"])
 		.then(function(success) {
@@ -118,7 +116,6 @@ angular.module('app.controllers', ['app.services','ngLodash','truncate','ngCordo
 			   
 			   localStorageService.set('gender',response.gender);
 			   $rootScope.user.gender = response.gender;
-			   
 			   localStorageService.set('location',response.location.name);
 			   $rootScope.user.location = response.location.name;
 			   
@@ -225,7 +222,10 @@ $scope.login = function(provider) {
 })
 
 .controller('filtersCtrl',function($scope,$rootScope,$state) {
-        
+    
+    $scope.selectColor = function(color) {
+	    
+    }
     $scope.slider = {
         min: 5,
         max: 1000,

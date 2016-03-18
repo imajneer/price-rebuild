@@ -73,7 +73,8 @@ angular.module('app.services', ['ngResource','LocalStorageModule','ngLodash'])
                 'page': $rootScope.page_no ? $rootScope.page_no : 1,
                 'show_by': '20',
                 'type' : $rootScope.currentGender ? $rootScope.currentGender : 'male',
-                'sort' : $rootScope.sortBy ? $rootScope.sortBy : ''
+                'sort' : $rootScope.sortBy ? $rootScope.sortBy : '',
+                'colors':['blue']
                  //defaults to recently added
 
             }

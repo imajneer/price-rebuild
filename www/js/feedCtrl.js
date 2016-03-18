@@ -24,7 +24,7 @@ angular.module('app.feedCtrl',['app.services','ngLodash','ngCordova'])
         $rootScope.products = [];
         $rootScope.currentGender = localStorageService.get('gender');
         $rootScope.page_no = 0;
-
+		getCats();
            console.log('after enter...');
       Favs.getList();
       $scope.shouldRefresh = true;
@@ -88,7 +88,7 @@ angular.module('app.feedCtrl',['app.services','ngLodash','ngCordova'])
 
     $scope.openFilters = function() {
 	    $rootScope.previousState = $state.current.name;
-	    $state.go('filter');
+	    $state.go('filters');
     };
 
     function loadModals() {
@@ -113,10 +113,11 @@ angular.module('app.feedCtrl',['app.services','ngLodash','ngCordova'])
         $scope.setCategory($scope.catNames[idx].name);
     };
 
-    $scope.categories = PriceAPI.categories();
-    console.log($scope.categories);
-
-    $scope.catNames = $scope.categories['female'];
-    $scope.catNames.splice(0,0,{'name':'all','img':'img/cats/all.svg'});
+	function getCats() {
+		var gender = $rootScope.currentGender ? $rootScope.currentGender : $rootScope.user.gender ? $rootScope.user.gender : 'male';
+		$scope.categories = PriceAPI.categories();
+		$scope.catNames = $scope.categories[gender];
+		$scope.catNames.splice(0,0,{'name':'all','img':'img/cats/all.svg'});
+    }
 
 })

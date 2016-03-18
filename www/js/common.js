@@ -4,7 +4,8 @@ angular.module('app.common', [])
     //insert common functions here
     return {
 	 	openProduct: openProduct,
-	 	buyNow: buyNow
+	 	buyNow: buyNow,
+	 	loadTimeout: loadTimeout
     }
     var loadTimeout = false,
     	itemLoaded = false;
