@@ -22,7 +22,7 @@ angular.module('app.feedCtrl',['app.services','ngLodash','ngCordova'])
         $ionicLoading.show();
         $scope.canReload = true;
         $rootScope.products = [];
-        $rootScope.currentGender = 'male';
+        $rootScope.currentGender = localStorageService.get('gender');
         $rootScope.page_no = 0;
 
            console.log('after enter...');
@@ -113,9 +113,10 @@ angular.module('app.feedCtrl',['app.services','ngLodash','ngCordova'])
         $scope.setCategory($scope.catNames[idx].name);
     };
 
-    $scope.categories = PriceAPI.categories;
+    $scope.categories = PriceAPI.categories();
     console.log($scope.categories);
 
-    $scope.catNames = PriceAPI.categories[$rootScope.currentGender];    $scope.catNames.splice(0,0,{'name':'all','img':'img/cats/all.svg'});
+    $scope.catNames = $scope.categories['female'];
+    $scope.catNames.splice(0,0,{'name':'all','img':'img/cats/all.svg'});
 
 })

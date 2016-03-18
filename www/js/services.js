@@ -3,32 +3,21 @@ angular.module('app.services', ['ngResource','LocalStorageModule','ngLodash'])
 
 .factory('PriceAPI',function($resource,$rootScope,$http,lodash,Favs) {
 
-    $rootScope.currentGender = 'male';
-
-    $rootScope.gender = $rootScope.gender ? $rootScope.gender : 'male' 
-     var catImg = [];
-    for(i = 0; i < 6; i++)
-        catImg.push('img/cats/' + $rootScope.gender + '/img' + (i+1).toString() + '.svg');
     return {
         item: $resource('http://staging12.getpriceapp.com' + '/item-details/:id/'),
         items: items,
         suggestions: $resource('http://staging12.getpriceapp.com' + '/item/similar-category/:id/'),
         suggestionstoo: function(id) { $http.get('http://staging12.getpriceapp.com' + '/item/similar-category/' + id + '/')
         },
-        itemList: function() { $http( {
-            method: 'GET',
-            url: 'http://staging12.getpriceapp.com' + '/item/list/',
-            params: {
-                'min_price' : $rootScope.min_price,
-                'max_price' : $rootScope.max_price,
-                'category' : $rootScope.currentCategory, //$rootScope.category
-                'page': $rootScope.page_no,
-                'show_by': 16,
-                'type' : $rootScope.gender
-
-            }
-        })},
-        categories: {
+        categories: categories 
+    }
+    
+    function categories() {
+	    var gender = $rootScope.currentGender ? $rootScope.currentGender : $rootScope.user.gender ? $rootScope.user.gender : 'male';
+		var catImg = [];
+		for(i = 0; i < 6; i++)
+        	catImg.push('img/cats/' + gender + '/img' + (i+1).toString() + '.svg');
+         return {
             female: [
                 {
                     name: 'bags',
@@ -71,6 +60,7 @@ angular.module('app.services', ['ngResource','LocalStorageModule','ngLodash'])
                 }]
         }
     }
+    
     function items(page) {
         console.log('refresh products');
         var request = $http( {
@@ -82,7 +72,7 @@ angular.module('app.services', ['ngResource','LocalStorageModule','ngLodash'])
                 'category' : $rootScope.currentCategory ? $rootScope.currentCategory : '', //$rootScope.category
                 'page': $rootScope.page_no ? $rootScope.page_no : 1,
                 'show_by': '20',
-                'type' : $rootScope.gender,
+                'type' : $rootScope.currentGender ? $rootScope.currentGender : 'male',
                 'sort' : $rootScope.sortBy ? $rootScope.sortBy : ''
                  //defaults to recently added
 
