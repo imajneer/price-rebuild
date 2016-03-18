@@ -31,14 +31,14 @@
 	<div class="row">Recently Liked</div>
     <div class="row recently-liked">
         <hscroller>
-            <hcard ng-repeat="item in user.recentlyLiked" index="{{$index}}" image="{{item.photo_set[0].url_medium}}" ng-click="openProduct(item)"></hcard>
+            <hcard ng-repeat="item in user.recentlyLiked" index="{{$index}}" image="{{item.photo_set[0].url_medium}}" ng-click="util.openProduct(item)"></hcard>
         </hscroller>
     </div>
 
     <div class="row">Recently Bought</div>
     <div class="row recently-bought">
         <hscroller>
-            <hcard ng-repeat="item in user.recentlyBought" index="{{$index}}" image="{{item.photo_set[0].url_medium}}" ng-click="openProduct(item)"></hcard>
+            <hcard ng-repeat="item in user.recentlyBought" index="{{$index}}" image="{{item.photo_set[0].url_medium}}" ng-click="util.openProduct(item)"></hcard>
         </hscroller>
     </div>
 

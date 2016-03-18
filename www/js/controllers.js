@@ -26,8 +26,8 @@ angular.module('app.controllers', ['app.services','ngLodash','truncate','ngCordo
 })
 
 
-.controller('accountCtrl', function($scope,$cordovaFacebook,$state,localStorageService,$rootScope) {
-
+.controller('accountCtrl', function($scope,$cordovaFacebook,$state,localStorageService,$rootScope,Util) {
+	$scope.util = Util;
     $scope.numFavs = $rootScope.favs.length;
 
     $scope.logout = function() {
@@ -47,7 +47,8 @@ angular.module('app.controllers', ['app.services','ngLodash','truncate','ngCordo
 })
 
 .controller('itemViewCtrl',function($scope,$stateParams,$ionicLoading,$http,$rootScope,$state,Util) {
-		
+	
+	$scope.util = Util;
     $scope.card = {
         number: '4242424242424242',
         cvc: '123',
@@ -58,9 +59,6 @@ angular.module('app.controllers', ['app.services','ngLodash','truncate','ngCordo
 		$state.go($rootScope.previousState);
 	}
     
-    $scope.buyNow = function() {
-        console.log('buying now!');
-    };
     console.log('loaded item view controller');
     
     $scope.$on('$ionicView.beforeEnter',function() {
@@ -196,106 +194,21 @@ $scope.login = function(provider) {
 
 .controller('feedItemCtrl',function($rootScope,$scope,$state,$ionicLoading,$scope,$http,PriceAPI,$ionicModal,$ionicScrollDelegate, $cordovaInAppBrowser,Util) {
 	
+	//load util singleton with openProduct and buyNow functions
+	$scope.util = Util;
+	
   console.log('loaded feedItemCtrl...');
   $scope.loadTimeout = false;
 
-  $scope.buyNow = function(product){ //this should also be moved to a util singleton
-    console.log('Buying now...')
-    backImg = 'img/back.png'
-    if(ionic.Platform.isIOS())
-      backImg = 'img/back-ios.png'
+  
 
-    var browserOptions = {
-      // Inappbrowser options for customization
-      toolbar: {
-        height: 44,
-        color: '#000000'
-      },
-      title: {
-        color: '#ffffff',
-        staticText: 'BACK TO BROWSING'
-      },
-      closeButton: {
-        wwwImage: backImg,
-        wwwImageDensity: 1,
-
-        imagePressed: 'close_pressed',
-        align: 'left',
-        event: 'closePressed'
-      },
-      backButtonCanClose: true
-    };
-    var ref = cordova.ThemeableBrowser.open(product.purchase_url, '_blank', browserOptions);
-    ref.addEventListener('loadstart', function(event) {
-        //console.log("loadstart" + event.url);
-    });
-    ref.addEventListener('loadstop', function(event) {
-      //console.log("loadstart" + event.url);
-      if ((event.url).indexOf('http://www.amazon.com/gp/buy/thankyou') === 0) {
-          setTimeout(function() {
-              ref.close(); // close inappbrowser 3seconds after purchase
-          }, 3000);
-
-      }
-    });
-    ref.addEventListener('closePressed', function(event) {
-        // Fix for back button in iOS
-        ref.close();
-    });
-
-  }
-
-  $scope.buyNow1 = function(product){
-    console.log(product);
-
-    var options = {
-      location: 'yes',
-      clearcache: 'yes',
-      toolbar: 'yes',
-      title: product.title
-    };
-    $cordovaInAppBrowser.open(product.purchase_url, '_blank', options)
-    .then(function(event) {
-      // success
-    })
-    .catch(function(event) {
-      // error
-    });
-
-  }
   function resetProductModal() {
       $ionicScrollDelegate.$getByHandle('modalContent').scrollTop(true);
       $rootScope.activeSlide = 1;
       $ionicScrollDelegate.$getByHandle('suggestionScroller').scrollTo(0,0,false);
   }
 
-  $scope.openProduct = function(product) { //this needs to be moved to a util singleton object
-    $scope.loadTimeout = false;
-    $ionicLoading.show();
-    $rootScope.previousState = $state.current.name;
-    $rootScope.prodId = product.itemID ? product.itemID : (product.id ? product.id : product.pk);
-    console.log(product);
-    console.log('opening product with id: ' + $rootScope.prodId);
-    $scope.loadTimeout = false;
 
-    setTimeout(function(){
-      if(!$scope.itemLoaded){
-        $scope.loadTimeout = true
-      }
-    }, 5000);
-    $scope.itemLoaded = false
-    $scope.loadTimeout = false
-    $http.get($rootScope.hostUrl + '/item-details/' + $rootScope.prodId+'/').then(function(res) {
-      console.log('should get item data...');
-      console.log(res);
-      // $rootScope.currentProduct = res.data;
-      $rootScope.currentProduct = res.data;
-      $rootScope.$broadcast('item.open');
-      $state.go('item');
-      $scope.itemLoaded = true
-    });
-    
-  }
 })
 
 .controller('filtersCtrl',function($scope,$rootScope,$state) {

@@ -7,7 +7,7 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('app', ['ionic','ionic.service.core', 'app.controllers', 'app.routes', 'app.services','app.directives','ngResource','LocalStorageModule','ionic.contrib.ui.hscrollcards','ngIOS9UIWebViewPatch','ngCordova','ti-segmented-control','rzModule','app.feedCtrl','app.filterCtrls','app.common'])
 
-.run(function($ionicPlatform,$rootScope,localStorageService,$timeout) {
+.run(function($ionicPlatform,$rootScope,localStorageService,$timeout,Util) {
     
     console.log('ran run function in app');
   $ionicPlatform.ready(function() {

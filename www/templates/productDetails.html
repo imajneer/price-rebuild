@@ -39,7 +39,7 @@
             </div>
         </div>
         
-                <button ng-click='buyNow(currentProduct)' class="button button-block button-assertive getit">
+                <button ng-click='util.buyNow(currentProduct)' class="button button-block button-assertive getit">
           <p class="title buy-title">get it</p>
         </button>
 
@@ -50,7 +50,7 @@
 
             <div class="row">
                 <hscroller delegate-handle="suggestionScroller"  pr-scroll-similar=true>
-                    <hcard ng-repeat="item in currentSuggestions" index="{{$index}}" desc="{{item.title}}" image="{{item.url_medium}}" ng-click="openProduct(item)"></hcard>
+                    <hcard ng-repeat="item in currentSuggestions" index="{{$index}}" desc="{{item.title}}" image="{{item.url_medium}}" ng-click="util.openProduct(item)"></hcard>
                 </hscroller>
             </div>
         </div>
