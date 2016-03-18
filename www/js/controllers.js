@@ -93,30 +93,44 @@ angular.module('app.controllers', ['app.services','ngLodash','truncate','ngCordo
 
 })
 
-.controller('WelcomeCtrl',function($rootScope,$scope,$state,localStorageService,$cordovaFacebook,$http,$ionicPlatform ) {
+.controller('WelcomeCtrl',function($rootScope,$scope,$state,localStorageService,$cordovaFacebook,$http,$ionicPlatform,PriceAPI,$window) {
     console.log('loaded welcome controller!');
     $ionicPlatform.ready(function(){
       $rootScope.currentGender = 'male'
     })
     $scope.loginFacebook = function() {
-        $cordovaFacebook.login(["public_profile", "email"])
-    .then(function(success) {
-        console.log('logged in!!!');
+    	$cordovaFacebook.login(["public_profile", "email"])
+		.then(function(success) {
+	        console.log('logged in!!!');
             console.log(success);
             localStorageService.set('accessToken',success.authResponse.accessToken);
+            $scope.accessToken = success.authResponse.accessToken;
             localStorageService.set('userId',success.authResponse.userID);
             $rootScope.user.id = localStorageService.get('userId');
+            
+			$cordovaFacebook.api('/me?fields=email,gender,name,age_range,location&access_token='+success.authResponse.accessToken).then(
+            function(response) {
+	           localStorageService.set('fullName',response.name);
+			   $rootScope.user.fullName = response.name;
+			   
+			   localStorageService.set('email',response.email);
+			   $rootScope.user.email = response.email;
+			   
+			   localStorageService.set('gender',response.gender);
+			   $rootScope.user.gender = response.gender;
+			   
+			   localStorageService.set('location',response.location.name);
+			   $rootScope.user.location = response.location.name;
+			   
+			},
+            function(error) {
+                console.log(error);
+				$window.alert('Error logging in');
+          	});
 
-        $cordovaFacebook.api("me", ["public_profile"])
-        .then(function(success) {
-            console.log(success);
-            localStorageService.set('fullName',success.name);
-            $rootScope.user.fullName = success.name;
-            $rootScope.gender = success.gender;
-            $state.go('tabs.feed');
-        }, function (error) {
-            // error
         });
+            
+        $state.go('tabs.feed');
 
         $http.get('https://graph.facebook.com/' + $rootScope.user.id + '/picture?redirect=false&width=500').then(function(res) {
             localStorageService.set('photoUrl',res.data.data.url);
@@ -128,8 +142,7 @@ angular.module('app.controllers', ['app.services','ngLodash','truncate','ngCordo
           });
 
 
-        });
-    }
+        };
 
 })
 

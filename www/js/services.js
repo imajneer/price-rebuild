@@ -88,6 +88,7 @@ angular.module('app.services', ['ngResource','LocalStorageModule','ngLodash'])
 
             }
         });
+
         return request.then( function(data) {
             console.log('got list data...');
             console.log(data);
@@ -107,6 +108,7 @@ angular.module('app.services', ['ngResource','LocalStorageModule','ngLodash'])
             });
 
     }
+
 })
 .service('Favs', function($http,$rootScope,lodash) {
     return {

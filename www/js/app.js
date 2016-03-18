@@ -36,6 +36,9 @@ angular.module('app', ['ionic','ionic.service.core', 'app.controllers', 'app.rou
         $rootScope.user.id = localStorageService.get('userId');
         $rootScope.user.accessToken = localStorageService.get('accessToken');
         $rootScope.user.fullName = localStorageService.get('fullName');
+        $rootScope.user.email = localStorageService.get('email');
+        $rootScope.user.gender = localStorageService.get('gender');
+        $rootScope.user.location = localStorageService.set('location');
     }
 
   }
