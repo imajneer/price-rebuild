@@ -10,7 +10,8 @@ angular.module('app.services', ['ngResource','LocalStorageModule','ngLodash'])
         suggestionstoo: function(id) { $http.get('http://staging12.getpriceapp.com' + '/item/similar-category/' + id + '/')
         },
         categories: categories,
-        auth: auth
+        auth: auth,
+        loadPage: loadPage
     }
     
     function categories() {
@@ -61,6 +62,47 @@ angular.module('app.services', ['ngResource','LocalStorageModule','ngLodash'])
                 }]
         }
     }
+    
+    function loadPage(page) {
+        $.ajax({
+            method: 'GET',
+            url: 'http://staging12.getpriceapp.com' + '/item/list/',
+            params: {
+                'price_min' : 0,
+                'price_max' : '',
+                'category' : '', //$rootScope.category
+                'page': page,
+                'show_by': '20',
+                'type' : 'male',
+                'sort' : ''
+            },
+            success: function(res) {
+               
+//               $rootScope.resData = angular.toJson(res);
+                $window.alert('got response...');
+                $rootScope.leftVal = 100;
+                if(page == 1)
+                    $rootScope.products = [];
+                var pageProds = lodash.map(res.data[0].products,function(product) {
+                    $rootSCope.leftVal = 98;
+                    product.fields.isFavorite = Favs.contains(product.fields.itemID);        
+                    return product.fields; // hardcoded to remove the first element to prevent bug
+                });
+
+                $rootScope.products = lodash.concat($rootScope.products,pageProds);
+                $rootScope.$broadcast('scroll.refreshComplete');
+                $rootScope.$broadcast('scroll.infiniteScrollComplete');
+                        $ionicLoading.hide();
+
+
+            },
+            error: function(xhr, status, error) {
+                $rootScope.incVal = 88;                
+            }
+            
+        });
+    }
+
     
     function items(page) {
         console.log('refresh products');

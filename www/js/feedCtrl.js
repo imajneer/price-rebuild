@@ -15,16 +15,13 @@ angular.module('app.feedCtrl',['app.services','ngLodash','ngCordova'])
             $rootScope.user.photoUrl = 'https://scontent.fsnc1-1.fna.fbcdn.net/hphotos-xla1/t31.0-8/12747354_10154146476332018_18157417964440176_o.jpg';
 */
         }
-    })
-     
-    $ionicPlatform.ready(function(){
-        console.log('platform ready...');
+        
         $ionicLoading.show();
         $scope.canReload = true;
         $rootScope.products = [];
         $rootScope.currentGender = localStorageService.get('gender');
         $rootScope.page_no = 0;
-		getCats();
+		$scope.getCats();
            console.log('after enter...');
       Favs.getList();
       $scope.shouldRefresh = true;
@@ -37,10 +34,16 @@ angular.module('app.feedCtrl',['app.services','ngLodash','ngCordova'])
             }
           }
       });
-      loadModals();
+      $scope.loadModals();
 
-  });
 
+    })
+    $scope.getCats = function() {
+		var gender = $rootScope.currentGender ? $rootScope.currentGender : $rootScope.user.gender ? $rootScope.user.gender : 'male';
+		$scope.categories = PriceAPI.categories();
+		$scope.catNames = $scope.categories[gender];
+		$scope.catNames.splice(0,0,{'name':'all','img':'img/cats/all.svg'});
+    }
 
     $rootScope.refresh = function()  {
 	  if($scope.canReload) {
@@ -91,7 +94,7 @@ angular.module('app.feedCtrl',['app.services','ngLodash','ngCordova'])
 	    $state.go('filters');
     };
 
-    function loadModals() {
+    $scope.loadModals = function() {
         $ionicModal.fromTemplateUrl('templates/share.html', function($ionicModal) {
             $scope.shareModal = $ionicModal;
         }, {
@@ -113,11 +116,6 @@ angular.module('app.feedCtrl',['app.services','ngLodash','ngCordova'])
         $scope.setCategory($scope.catNames[idx].name);
     };
 
-	function getCats() {
-		var gender = $rootScope.currentGender ? $rootScope.currentGender : $rootScope.user.gender ? $rootScope.user.gender : 'male';
-		$scope.categories = PriceAPI.categories();
-		$scope.catNames = $scope.categories[gender];
-		$scope.catNames.splice(0,0,{'name':'all','img':'img/cats/all.svg'});
-    }
+
 
 })
