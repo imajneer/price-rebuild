@@ -22,8 +22,7 @@
       <ion-item collection-repeat="product in products" item-width="50%" item-height="200" class="feed-ion">
         <pr-feed-item item='product'></pr-feed-item>
       </ion-item>
-        <ion-infinite-scroll
-    on-infinite="loadNextPage()"
-    distance="16%">
+      <!-- this loads the first page -->
+        <ion-infinite-scroll on-infinite="loadNextPage()" distance="16%"> 
     </ion-content>
 </ion-view>

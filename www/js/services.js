@@ -1,7 +1,7 @@
 angular.module('app.services', ['ngResource','LocalStorageModule','ngLodash'])
 
 
-.factory('PriceAPI',function($resource,$rootScope,$http,lodash,Favs,$window) {
+.factory('PriceAPI',function($resource,$rootScope,$http,lodash,Favs,$window,localStorageService,$ionicLoading) {
 
     return {
         item: $resource('http://staging12.getpriceapp.com' + '/item-details/:id/'),
@@ -15,9 +15,9 @@ angular.module('app.services', ['ngResource','LocalStorageModule','ngLodash'])
     }
     
     function categories() {
-	    var gender = $rootScope.currentGender ? $rootScope.currentGender : $rootScope.user.gender ? $rootScope.user.gender : 'male';
+	    var gender = 'male';
 		var catImg = [];
-		for(i = 0; i < 6; i++)
+		for(var i = 0; i < 6; i++)
         	catImg.push('img/cats/' + gender + '/img' + (i+1).toString() + '.svg');
          return {
             female: [
@@ -81,10 +81,13 @@ angular.module('app.services', ['ngResource','LocalStorageModule','ngLodash'])
 //               $rootScope.resData = angular.toJson(res);
                 $window.alert('got response...');
                 $rootScope.leftVal = 100;
+                console.log(res[0]);
+                console.log(res.data);
+                var products = angular.fromJson(res)[0].products;
                 if(page == 1)
                     $rootScope.products = [];
-                var pageProds = lodash.map(res.data[0].products,function(product) {
-                    $rootSCope.leftVal = 98;
+                var pageProds = lodash.map(products,function(product) {
+                    $rootScope.leftVal = 98;
                     product.fields.isFavorite = Favs.contains(product.fields.itemID);        
                     return product.fields; // hardcoded to remove the first element to prevent bug
                 });
@@ -212,11 +215,11 @@ angular.module('app.services', ['ngResource','LocalStorageModule','ngLodash'])
     }
 
     function getList() {
-      $http.get('http://staging12.getpriceapp.com' + '/favourites/list?user=76').then(function(res) {
+        $http.get('http://staging12.getpriceapp.com' + '/favourites/list?user=76').then(function(res) {
           console.log('got favs...');
           
           $rootScope.favs = res.data;
-          for(item in $rootScope.favs){
+          for(var item in $rootScope.favs){
             item.isFavorite = true; // ideally it can be set at server side
           }
       },function(err) {
