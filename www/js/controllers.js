@@ -178,36 +178,43 @@ angular.module('app.controllers', ['app.services','ngLodash','truncate','ngCordo
 	//load util singleton with openProduct and buyNow functions
 	$scope.util = Util;
 
+  // Ideally, it should be wrapped up inside a function in order to
+  // have just one instance but single instance was not working flawlessly
+  // with events inside directives
+  
+  $ionicModal.fromTemplateUrl('templates/productDetails.html', function($ionicModal) {
+      $scope.productModal = $ionicModal;
+  }, {
+      scope: $scope,
+      animation: 'slide-in-up'
+  });
+
+  // Bringing back the openProduct function from Util. As it has introduced a couple of issues due to
+  // change in scope. i.e. $scope has been changed to $rootScope so
+  //  events inside directives were not being caught.
+
   $scope.openProduct = function(product) {
     $ionicLoading.show();
-    console.log('Show......')
-    console.log(product);
     var productId =  product.itemID ? product.itemID : (product.id ? product.id : product.pk);
-
     console.log('opening product with id: ' + productId);
-
     $http.get($rootScope.hostUrl + '/item-details/' + productId+'/').then(function(res) {
       console.log('should get item data...');
       console.log(res);
-      $rootScope.currentProduct = res.data;
-      // $scope.currentProduct = res.data;
+      // $rootScope.currentProduct = res.data;
+      $scope.currentProduct = res.data;
       resetProductModal();
-      $rootScope.productModal.show();
+      $scope.productModal.show();
     })
-
-
     PriceAPI.item.get({id: productId},function(data) {
     });
-
     $http.get($rootScope.hostUrl + '/item/similar-category/' + productId + '/').then(function(data) {
-        $rootScope.currentSuggestions = data.data;
-        // $scope.currentSuggestions = data.data;
+        // $rootScope.currentSuggestions = data.data;
+        $scope.currentSuggestions = data.data;
         console.log(data.data);
         $ionicLoading.hide();
     },function(e) {
         console.log(e);
     });
-
   }
 
   function resetProductModal() {
@@ -215,15 +222,11 @@ angular.module('app.controllers', ['app.services','ngLodash','truncate','ngCordo
       $rootScope.activeSlide = 1;
       $ionicScrollDelegate.$getByHandle('suggestionScroller').scrollTo(0,0,false);
   }
-
-
 })
 
 .controller('filtersCtrl',function($scope,$rootScope,$state) {
 
-
     $scope.selectColor = function(color) {
-
     }
     $scope.slider = {
         min: 5,

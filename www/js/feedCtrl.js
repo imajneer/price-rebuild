@@ -2,17 +2,9 @@ angular.module('app.feedCtrl',['app.services','ngLodash','ngCordova'])
 .controller('feedCtrl',function($scope,$rootScope,$state,$ionicModal,$q,$filter,lodash,$ionicPlatform,PriceAPI,$ionicActionSheet,$ionicScrollDelegate,$http,localStorageService,$timeout,$ionicLoading,Favs) {
 
 	 console.log('loaded feed controller...');
-	 $ionicModal.fromTemplateUrl('templates/productDetails.html', function($ionicModal) {
-       $rootScope.productModal = $ionicModal;
-   }, {
-       scope: $scope,
-       animation: 'slide-in-up'
-   });
-
     $scope.$on('$ionicView.beforeEnter',function() {
         console.log('before enter...');
-				if(true){
-        // if(localStorageService.get('accessToken')) {
+        if(localStorageService.get('accessToken')) {
 	        //should already be signed in
         } else if(ionic.Platform.isIOS() || ionic.Platform.isAndroid())  {
             $state.go('signin'); //this is commented out to support web dev
