@@ -1,87 +1,35 @@
-<ion-view view-title="Shipping Details">
-        <ion-content padding="true">
-          <div class="list">
-            <label class="item item-input item-floating-label">
-              <span class="input-label" ng-model="user.details.name">Full Name</span>
-              <input type="text" placeholder="Full Name">
-            </label>
-            <label class="item item-input item-floating-label">
-              <span class="input-label" ng-model="user.details.address">Address</span>
-              <input type="text" placeholder="Address">
-            </label>
-            <label class="item item-input item-floating-label">
-              <span class="input-label" ng-model="user.details.city">City</span>
-              <input type="text" placeholder="City">
-            </label>
-            <label class="item item-input item-select">
-              <div class="input-label">
-                State
-              </div>
-              <select ng-model="user.details.state">
-                <option selected>AK</option>
-                <option>AL</option>
-                <option>AZ</option>
-                <option>AR</option>
-                <option>CA</option>
-                <option>CO</option>
-                <option>CT</option>
-                <option>DE</option>
-                <option>FL</option>
-                <option>GA</option>
-                <option>HI</option>
-                <option>ID</option>
-                <option>IL</option>
-                <option>IN</option>
-                <option>IA</option>
-                <option>KS</option>
-                <option>KY</option>
-                <option>LA</option>
-                <option>ME</option>
-                <option>MD</option>
-                <option>MA</option>
-                <option>MI</option>
-                <option>MN</option>
-                <option>MS</option>
-                <option>MO</option>
-                <option>MT</option>
-                <option>NE</option>
-                <option>NV</option>
-                <option>NH</option>
-                <option>NJ</option>
-                <option>NM</option>
-                <option>NY</option>
-                <option>NC</option>
-                <option>ND</option>
-                <option>OH</option>
-                <option>OK</option>
-                <option>OR</option>
-                <option>PA</option>
-                <option>RI</option>
-                <option>SC</option>
-                <option>SD</option>
-                <option>TN</option>
-                <option>TX</option>
-                <option>UT</option>
-                <option>VT</option>
-                <option>VA</option>
-                <option>WA</option>
-                <option>WV</option>
-                <option>WI</option>
-                <option>WY</option>
-              </select>
-            </label>
-            <label class="item item-input item-floating-label">
-              <span class="input-label" ng-model="user.details.zip">Zip</span>
-              <input type="text" placeholder="Zipcode">
-            </label>
-          </div>
 
-
-            <button class="button button-block button-positive" ng-click="saveInfo()">
-            Save and Continue
-          </button>
-          <button class="button button-block button-positive" ui-sref="tabs.feed">
-            Skip and start shopping now
-          </button>
+<ion-view title="Price">
+        <ion-content padding="false" class="filters-rightside">
+          <div class="list filters-price">
+	           <div class="item item-divider filters-dividers">
+			    Max Price Per Product
+			  </div>
+			  <div class="item range range-positive">
+			    $20
+			    <input type="range" name="volume" min="0" max="100" value="33">
+			    $10,000
+			  </div>
+			</div>
+			
+			<ion-list>
+			 <div class="item item-divider filters-dividers">
+			    Price Ranges
+			 </div>
+				<div class="row">
+					<div class="col filters-col">
+						<ion-checkbox ng-model="filter.p1" class="checkbox-stable filters-pricerange">$25-$50</ion-checkbox>
+						<ion-checkbox ng-model="filter.p2" class="checkbox-stable filters-pricerange">$50-$100</ion-checkbox>
+						<ion-checkbox ng-model="filter.p3" class="checkbox-stable filters-pricerange">$100-$200</ion-checkbox>
+					</div>
+					<div class="col filters-col">
+						<ion-checkbox ng-model="filter.p4" class="checkbox-stable filters-pricerange">$200-$500</ion-checkbox>
+						<ion-checkbox ng-model="filter.p5" class="checkbox-stable filters-pricerange">$500-$1000</ion-checkbox>
+						<ion-checkbox ng-model="filter.p6" class="checkbox-stable filters-pricerange">$1000+</ion-checkbox>
+					</div>
+				</div>
+			</ion-list>
+			
+			<button class="button button-calm filters-clearbutton">Clear Prices</button>
         </ion-content>
       </ion-view>

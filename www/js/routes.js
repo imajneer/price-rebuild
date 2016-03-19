@@ -26,40 +26,69 @@ angular.module('app.routes',[])
       controller: 'ShippingCtrl'
 
     })
-    .state('filter', {
-      url: '/filter',
-      templateUrl: 'templates/filter/menu.html'
+
+    
+    .state('filters', {
+		url: '/filters',
+		templateUrl: 'templates/filters.html',
+		controller: 'filtersCtrl',
+		abstract:true
+	})
+	
+	.state('filters.menu', {
+      url: '/filters/menu',
+      templateUrl: 'templates/filters.html'
+    })
+
+    
+    .state('filters.price', {
+      url: '',
+      views: {
+        'menuContent' :{
+	      templateUrl: 'templates/filter/price.html',
+	      controller: 'priceCtrl'
+      	}
+      }
     })
     
-    
-    .state('filter.price', {
-      url: '/filter/price',
-      templateUrl: 'templates/filter/price.html',
-      controller: 'priceCtrl'
+      .state('filters.size', {
+      url: '',
+      views: {
+        'menuContent' :{
+	      templateUrl: 'templates/filter/size.html',
+	      controller: 'sizeCtrl'
+      	}
+      }
     })
     
-      .state('filter.size', {
-      url: '/filter/size',
-      templateUrl: 'templates/filter/size.html',
-      controller: 'sizeCtrl'
+      .state('filters.category', {
+      url: '',
+      views: {
+        'menuContent' :{
+	      templateUrl: 'templates/filter/category.html',
+	      controller: 'catCtrl'
+      	}
+      }
     })
     
-      .state('filter.category', {
-      url: '/filter/category',
-      templateUrl: 'templates/filter/category.html',
-      controller: 'catCtrl'
+      .state('filters.color', {
+      url: '',
+      views: {
+        'menuContent' :{
+	      templateUrl: 'templates/filter/color.html',
+	      controller: 'colorCtrl'
+      	}
+      }
     })
     
-      .state('filter.color', {
-      url: '/filter/color',
-      templateUrl: 'templates/filter/color.html',
-      controller: 'colorCtrl'
-    })
-    
-      .state('filter.condition', {
-      url: '/filter/condition',
-      templateUrl: 'templates/filter/condition.html',
-      controller: 'condCtrl'
+      .state('filters.condition', {
+      url: '',
+      views: {
+        'menuContent' :{
+	      templateUrl: 'templates/filter/condition.html',
+	      controller: 'condCtrl'
+      	}
+      }
     })
 
   .state('tabs', {
@@ -104,11 +133,6 @@ angular.module('app.routes',[])
       controller: 'itemViewCtrl'
     })
 
-	.state('filters', {
-		url: 'filters',
-		templateUrl: 'templates/filters.html',
-		controller: 'filtersCtrl'
-	})
 
 
 $urlRouterProvider.otherwise('feed')
