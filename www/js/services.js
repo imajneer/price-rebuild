@@ -78,14 +78,12 @@ angular.module('app.services', ['ngResource','LocalStorageModule','ngLodash'])
             success: function(res) {
                
 //               $rootScope.resData = angular.toJson(res);
-                $rootScope.leftVal = 100;
                 console.log(res[0]);
                 console.log(res.data);
                 var products = angular.fromJson(res)[0].products;
                 if(page == 1)
                     $rootScope.products = [];
                 var pageProds = lodash.map(products,function(product) {
-                    $rootScope.leftVal = 98;
                     product.fields.isFavorite = Favs.contains(product.fields.itemID);        
                     return product.fields; // hardcoded to remove the first element to prevent bug
                 });
