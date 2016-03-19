@@ -8,38 +8,38 @@ angular.module('app.feedCtrl',['app.services','ngLodash','ngCordova'])
         if(localStorageService.get('accessToken')) {
 	        //should already be signed in
         } else if(ionic.Platform.isIOS() || ionic.Platform.isAndroid())  {
-            $state.go('signin'); //this is commented out to support web dev
+//        $state.go('signin'); //this is commented out to support web dev
         }
-
         if(!$rootScope.user) {
             $rootScope.user = {};
         }
+
+        
         $scope.canReload = true;
         $rootScope.products = [];
         var gender = localStorageService.get('gender');
         $rootScope.currentGender = gender ? gender : 'male';
         $rootScope.page_no = 0;
 		$scope.getCats();
-           console.log('after enter...');
-      Favs.getList();
-      $scope.shouldRefresh = true;
-   /*
-   $rootScope.$watch('favs', function(newVal, oldVal){
+		
+		
+/*
+  $rootScope.$watch('favs', function(newVal, oldVal){
+
         if (newVal !== oldVal) {
             if($scope.shouldRefresh){
                 console.log('trying to refresh again');
-              $rootScope.refresh();
               $scope.shouldRefresh = false;
             }
           }
       });
 */
       $scope.loadModals();
-
+      $scope.loadNextPage();
     });
 
 	$scope.getCats = function() {
-		var gender = $rootScope.currentGender ? $rootScope.currentGender : $rootScope.user.gender ? $rootScope.user.gender : 'male';
+        var gender = 'male'; //var gender = $rootScope.currentGender ? $rootScope.currentGender : $rootScope.user.gender ? $rootScope.user.gender : 'male'; 
 		$scope.categories = PriceAPI.categories();
 		$scope.catNames = $scope.categories[gender];
 		$scope.catNames.splice(0,0,{'name':'all','img':'img/cats/all.svg'});
@@ -56,19 +56,34 @@ angular.module('app.feedCtrl',['app.services','ngLodash','ngCordova'])
 		}
 
     };
-
-    $scope.loadNextPage = function() {
+       $scope.loadNextPage = function() {
         console.log('should load next page');
-        $rootScope.page_no++;
-        PriceAPI.items($rootScope.page_no).then(function(res) {
-            console.log(res);
-            if($rootScope.page_no == 1)
-                $rootScope.products = [];
-            $rootScope.products = lodash.concat($rootScope.products,res);
-        $scope.$broadcast('scroll.refreshComplete');
-        $scope.$broadcast('scroll.infiniteScrollComplete');
-        $ionicLoading.hide();
-        })
+            $rootScope.rightVal = 2;
+            $rootScope.page_no = 1;
+        if($rootScope.favs) {
+            $scope.loadPage($rootScope.page_no);
+        } else {
+            $rootScope.rightVal = 3;
+            $.ajax({
+                   method:'GET',
+                   url: 'http://staging12.getpriceapp.com' + '/favourites/list?user=76',
+                   success: function(res) {
+
+                        $rootScope.favs = angular.fromJson(res);
+                        console.log($rootScope.favs);
+                        for(var item in $rootScope.favs){
+                            item.isFavorite = true; // ideally it can be set at server side
+                        }
+                        $rootScope.leftVal = 2;
+                        $scope.loadPage($rootScope.page_no);
+
+                   }
+                   });
+            $rootScope.rightVal = 4;
+            }
+        }    
+    $scope.loadPage = function(page) {
+        PriceAPI.loadPage(page);
     }
 
     var filterButtons = [
@@ -116,7 +131,7 @@ angular.module('app.feedCtrl',['app.services','ngLodash','ngCordova'])
         $scope.setCategory($scope.catNames[idx].name);
     };
 
-		$scope.cancelFilter = function(){
-			$state.go('tabs.feed')
-		}
-})
+    $scope.cancelFilter = function(){
+        $state.go('tabs.feed')
+    }
+});
