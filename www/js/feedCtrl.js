@@ -91,7 +91,7 @@ angular.module('app.feedCtrl',['app.services','ngLodash','ngCordova'])
 
     $scope.openFilters = function() {
 	    $rootScope.previousState = $state.current.name;
-	    $state.go('filters');
+	    $state.go('filters.menu');
     };
 
     $scope.loadModals = function() {

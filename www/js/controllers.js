@@ -110,14 +110,16 @@ angular.module('app.controllers', ['app.services','ngLodash','truncate','ngCordo
             
 			$cordovaFacebook.api('/me?fields=email,gender,name,age_range,location&access_token='+success.authResponse.accessToken).then(
             function(response) {
+	            
 	           localStorageService.set('fullName',response.name);
 			   $rootScope.user.fullName = response.name;
-			   
+
 			   localStorageService.set('email',response.email);
 			   $rootScope.user.email = response.email;
-			   
+
 			   localStorageService.set('gender',response.gender);
 			   $rootScope.user.gender = response.gender;
+
 			   localStorageService.set('location',response.location.name);
 			   $rootScope.user.location = response.location;
 			   //auth call to get user id
@@ -189,7 +191,8 @@ angular.module('app.controllers', ['app.services','ngLodash','truncate','ngCordo
 })
 
 .controller('filtersCtrl',function($scope,$rootScope,$state) {
-    
+
+   
     $scope.selectColor = function(color) {
 	    
     }

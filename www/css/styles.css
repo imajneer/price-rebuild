@@ -631,3 +631,105 @@ Heart animation CSS
     padding: 15px;
 }
 
+
+
+/**********************************
+Filters CSS
+**********************************/
+
+.redcolor {
+	 background-color: #c06;
+	 height: 25px;
+	 width: 25px;
+	 border-radius: 50%;
+ }
+ 
+ .filters-leftside {
+	 width: 20vw !important;
+	 background-color: #444 !important;
+	 border: none !important;
+ }
+ 
+ .filters-leftlist .item {
+	 background-color: #444 !important;
+	 border: none !important;
+	 height: 100px !important;
+	  }
+ 
+  .filters-leftlist a {
+	 padding: 20px 10px !important;
+	 text-align: center;
+ }
+ 
+ .filters-leftlist a i {
+	 width: 50px !important;
+	 font-size: 2em; 
+	 margin: 0 auto;
+	 text-align: center;
+	 color: #eee;
+	 padding: 0;
+ }
+ 
+  .filters-icontag {
+	 width: 100%;
+	 text-transform: uppercase;
+	 font-size: .6em !important;
+	 margin: 0 auto;
+	 text-align: center;
+	 overflow: visible !important;
+	 color: #fff !important; 
+ }
+ 
+ .filters-rightside {
+	 background-color: #aaa !important;
+ }
+ 
+  .filters-rightside .row {
+	 padding: 0 !important;
+ }
+ 
+  .filters-col {
+	  padding: 0 !important;
+	  overflow: visible !important;
+  }
+
+  .filters-dividers {
+	  font-size: 1em !important;
+	  text-transform: uppercase;
+	  font-weight: 300 !important;
+  }
+  .filters-icon:active {
+	color: #fff;
+ }
+ 
+/*
+ .filters-price .range, .filters-pricerange {
+	 background-color: #aaa !important;
+	 border: none !important;
+	 font-size: 1em !important;
+ }
+*/
+ 
+ .filters-dividers {
+	 background-color: #aaa !important;
+	 border: none !important;
+ }
+ 
+ .filters-clearbutton {
+	 margin: 0 2.5% !important;
+	 width: 95%;
+ }
+ 
+
+
+@media (min-width: 100px) {
+  .menu-content {
+    -webkit-transform: translate3d(20vw, 0px, 0px) !important;
+    width: 80vw !important;
+  } 
+  
+  .bar-header button.ion-navicon {
+    display: none;
+  }
+}
+

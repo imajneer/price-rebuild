@@ -1,87 +1,27 @@
-<ion-view view-title="Shipping Details">
-        <ion-content padding="true">
-          <div class="list">
-            <label class="item item-input item-floating-label">
-              <span class="input-label" ng-model="user.details.name">Full Name</span>
-              <input type="text" placeholder="Full Name">
-            </label>
-            <label class="item item-input item-floating-label">
-              <span class="input-label" ng-model="user.details.address">Address</span>
-              <input type="text" placeholder="Address">
-            </label>
-            <label class="item item-input item-floating-label">
-              <span class="input-label" ng-model="user.details.city">City</span>
-              <input type="text" placeholder="City">
-            </label>
-            <label class="item item-input item-select">
-              <div class="input-label">
-                State
-              </div>
-              <select ng-model="user.details.state">
-                <option selected>AK</option>
-                <option>AL</option>
-                <option>AZ</option>
-                <option>AR</option>
-                <option>CA</option>
-                <option>CO</option>
-                <option>CT</option>
-                <option>DE</option>
-                <option>FL</option>
-                <option>GA</option>
-                <option>HI</option>
-                <option>ID</option>
-                <option>IL</option>
-                <option>IN</option>
-                <option>IA</option>
-                <option>KS</option>
-                <option>KY</option>
-                <option>LA</option>
-                <option>ME</option>
-                <option>MD</option>
-                <option>MA</option>
-                <option>MI</option>
-                <option>MN</option>
-                <option>MS</option>
-                <option>MO</option>
-                <option>MT</option>
-                <option>NE</option>
-                <option>NV</option>
-                <option>NH</option>
-                <option>NJ</option>
-                <option>NM</option>
-                <option>NY</option>
-                <option>NC</option>
-                <option>ND</option>
-                <option>OH</option>
-                <option>OK</option>
-                <option>OR</option>
-                <option>PA</option>
-                <option>RI</option>
-                <option>SC</option>
-                <option>SD</option>
-                <option>TN</option>
-                <option>TX</option>
-                <option>UT</option>
-                <option>VT</option>
-                <option>VA</option>
-                <option>WA</option>
-                <option>WV</option>
-                <option>WI</option>
-                <option>WY</option>
-              </select>
-            </label>
-            <label class="item item-input item-floating-label">
-              <span class="input-label" ng-model="user.details.zip">Zip</span>
-              <input type="text" placeholder="Zipcode">
-            </label>
-          </div>
-
-
-            <button class="button button-block button-positive" ng-click="saveInfo()">
-            Save and Continue
-          </button>
-          <button class="button button-block button-positive" ui-sref="tabs.feed">
-            Skip and start shopping now
-          </button>
+<ion-view title="Colors" left-buttons="leftButtons">
+        <ion-content padding="false" class="filters-rightside">
+				<ion-list>
+				<div class="item item-divider filters-dividers">
+			    	Pick a color
+			  	</div>  	
+			  	</div>
+					<div class="row">
+						<div class="col filters-col">
+							<ion-checkbox class="checkbox-stable" ng-model="filter.red">Color</ion-checkbox>
+							<ion-checkbox class="checkbox-stable" ng-model="filter.orange">Color</ion-checkbox>
+							<ion-checkbox class="checkbox-stable" ng-model="filter.yellow">Color</ion-checkbox>
+							<ion-checkbox class="checkbox-stable" ng-model="filter.green">Color</ion-checkbox>
+							<ion-checkbox class="checkbox-stable" ng-model="filter.silver">Color</ion-checkbox>
+						</div>
+						<div class="col filters-col">
+							<ion-checkbox class="checkbox-stable" ng-model="filter.blue">Color</ion-checkbox>
+							<ion-checkbox class="checkbox-stable" ng-model="filter.purple">Color</ion-checkbox>
+							<ion-checkbox class="checkbox-stable" ng-model="filter.black">Color</ion-checkbox>
+							<ion-checkbox class="checkbox-stable" ng-model="filter.white">Color</ion-checkbox>
+							<ion-checkbox class="checkbox-stable" ng-model="filter.gold">Color</ion-checkbox>
+						</div>
+					</div>
+				</ion-list>
+			<button class="button button-calm filters-clearbutton">Clear Colors</button>
         </ion-content>
       </ion-view>
