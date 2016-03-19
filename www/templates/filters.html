@@ -6,51 +6,51 @@
 -->
 <!-- <ion-content overflow-scroll="true" padding="false" class="has-header filters-modal" scroll="true"> -->
 
-  <div ui-vew>  
+  <div ui-vew>
 	<ion-side-menus>
-        
+
         <ion-side-menu-content>
           <ion-nav-bar class="bar-dark">
           </ion-nav-bar>
           <ion-nav-view name="menuContent"></ion-nav-view>
-        </ion-side-menu-content> 
-      
+        </ion-side-menu-content>
+
 
         <ion-side-menu side="left">
           <ion-header-bar class="bar-dark">
           </ion-header-bar>
           <ion-content class="filters-leftside" overflow-scroll="true" padding="false" class="has-header filters-modal" scroll="true">
             <ul class="list filters-leftlist">
-              <a ui-sref="filters.price" class="item"><i class="icon ion-ios-pricetag"></i>
+              <a ui-sref="filters.price" class="item" ui-sref-active="active"><i class="icon ion-ios-pricetag"></i>
 	              <br><p class="filters-icontag">Price</p></a>
-              <a ui-sref="filters.size" class="item"><i class="icon ion-ios-list"></i>
+              <a ui-sref="filters.size" class="item" ui-sref-active="active"><i class="icon ion-ios-list"></i>
 	              <br><p class="filters-icontag">Size</p></a>
-              <a ui-sref="filters.category" class="item"><i class="icon ion-bowtie"></i>
+              <a ui-sref="filters.category" class="item" ui-sref-active="active"><i class="icon ion-bowtie"></i>
 	              <br><p class="filters-icontag">Category</p></a>
-              <a ui-sref="filters.color"class="item"><i class="icon ion-paintbrush"></i>
+              <a ui-sref="filters.color"class="item" ui-sref-active="active"><i class="icon ion-paintbrush"></i>
 	              <br><p class="filters-icontag">Color</p></a>
-              <a ui-sref="filters.condition" class="item"><i class="icon ion-ios-search"></i>
+              <a ui-sref="filters.condition" class="item" ui-sref-active="active"><i class="icon ion-ios-search"></i>
 	              <br><p class="filters-icontag">Condition</p></a>
             </ul>
           </ion-content>
-          
+
         </ion-side-menu>
-        
+
       </ion-side-menus>
 		<ion-footer-bar align-title="center" class="bar-dark">
 			<div class="buttons">
 				<button class="button button-clear">Reset</button>
-			</div>		
+			</div>
 			<h1 class="title"><button class="button button-clear">Apply</button></h1>
 			<div class="buttons">
 				<button class="button button-clear">Cancel</button>
-			</div>			
+			</div>
 		</ion-footer-bar>
-      
-       
+
+
 <!--
     <div class="list">
-	    
+
 		<div class="item item-divider">
 			Price
 		</div>
@@ -61,7 +61,7 @@
 			    rz-slider-options="slider.options">
 			</rzslider>
 		</div>
-		
+
 		<div class="item item-divider">
 			Size
 		</div>
@@ -72,8 +72,8 @@
 	            </ti-segmented-control>
 	        </ion-scroll>
 		</div>
-		
-		
+
+
 		<div class="item item-divider">
 			Color
 		</div>
@@ -86,10 +86,10 @@
 	            <ti-segmented-control on-select="selectedCategory($index)" style="width:680px;">
 	            	<ti-segmented-control-button ng-repeat="cat in catNames" class="button button-icon icon scroll-icon" ng-attr-title="cat"></ti-segmented-control-button>
 	            </ti-segmented-control>
-	        </ion-scroll>			
-	        
+	        </ion-scroll>
+
 		</div>
-		
+
 		<div class="item item-divider">
 			Condition
 		</div>
@@ -110,4 +110,3 @@
 -->
 
 </div>
-
