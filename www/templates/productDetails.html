@@ -39,7 +39,7 @@
             </div>
         </div>
 
-                <button ng-click='util.buyNow(currentProduct)' class="button button-block button-assertive getit">
+                <button ng-click='util.buyNow(currentProduct)' class="button button-block button-assertive getit" ng-disabled='!getItReady'>
           <p class="title buy-title">get it</p>
         </button>
 

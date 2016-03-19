@@ -154,7 +154,7 @@ angular.module('app.controllers', ['app.services','ngLodash','truncate','ngCordo
 .controller('feedItemCtrl',function($rootScope,$state,$ionicLoading,$scope,$http,PriceAPI,$ionicModal,$ionicScrollDelegate, $cordovaInAppBrowser,Util) {
   console.log('loaded feedItemCtrl...');
   $scope.loadTimeout = false;
-
+  $scope.getItReady = false
 	//load util singleton with openProduct and buyNow functions
 	$scope.util = Util;
 
@@ -172,7 +172,6 @@ angular.module('app.controllers', ['app.services','ngLodash','truncate','ngCordo
   // Bringing back the openProduct function from Util. As it has introduced a couple of issues due to
   // change in scope. i.e. $scope has been changed to $rootScope so
   //  events inside directives were not being caught.
-
   $scope.openProduct = function(product) {
     $ionicLoading.show();
     var productId =  product.itemID ? product.itemID : (product.id ? product.id : product.pk);
