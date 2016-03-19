@@ -3,12 +3,12 @@
       <div class="modal">
         <header class="bar bar-header bar-dark">
           <h1 class="title prod-details">{{currentProduct.title | characters:45}}</h1>
-          <div class="button button-clear" ng-click="goBack()"><span class="det-close ion-close"></span></div>
+          <div class="button button-clear" ng-click="productModal.hide()"><span class="det-close ion-close"></span></div>
         </header>
 
         <ion-content overflow-scroll="true" padding="false" class="has-header" delegate-handle="modalContent">
-          <div ng-show='util.loadTimeout' ng-cloak><p ng-show='util.loadTimeout' ng-cloak class='text-danger'>Loading Error... Please check back later</p></div>
-          <div ng-show='!util.loadTimeout'>
+          <div ng-show='loadTimeout' ng-cloak><p ng-show='loadTimeout' ng-cloak class='text-danger'>Loading Error... Please check back later</p></div>
+          <div ng-show='!loadTimeout'>
             <ion-slide-box>
             <ion-slide ng-repeat="photo in currentProduct.photo_set">
             <div class="row photo-image">
@@ -38,7 +38,7 @@
                 <div class="col" pr-store-numerator=true>{{currentProduct.store_name}}</div>
             </div>
         </div>
-        
+
                 <button ng-click='util.buyNow(currentProduct)' class="button button-block button-assertive getit">
           <p class="title buy-title">get it</p>
         </button>
@@ -50,12 +50,12 @@
 
             <div class="row">
                 <hscroller delegate-handle="suggestionScroller"  pr-scroll-similar=true>
-                    <hcard ng-repeat="item in currentSuggestions" index="{{$index}}" desc="{{item.title}}" image="{{item.url_medium}}" ng-click="util.openProduct(item)"></hcard>
+                    <hcard ng-repeat="item in currentSuggestions" index="{{$index}}" desc="{{item.title}}" image="{{item.url_medium}}" ng-click="openProduct(item)"></hcard>
                 </hscroller>
             </div>
         </div>
 
 
 	</div>
-  </ion-content>         
+  </ion-content>
 </ion-view>

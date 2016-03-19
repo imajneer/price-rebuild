@@ -1,8 +1,7 @@
 angular.module('app.feedCtrl',['app.services','ngLodash','ngCordova'])
 .controller('feedCtrl',function($scope,$rootScope,$state,$ionicModal,$q,$filter,lodash,$ionicPlatform,PriceAPI,$ionicActionSheet,$ionicScrollDelegate,$http,localStorageService,$timeout,$ionicLoading,Favs) {
-	
-	 console.log('loaded feed controller...');
 
+	 console.log('loaded feed controller...');
     $scope.$on('$ionicView.beforeEnter',function() {
         console.log('before enter...');
         if(localStorageService.get('accessToken')) {
@@ -10,7 +9,7 @@ angular.module('app.feedCtrl',['app.services','ngLodash','ngCordova'])
         } else if(ionic.Platform.isIOS() || ionic.Platform.isAndroid())  {
             $state.go('signin'); //this is commented out to support web dev
         }
-        
+
         if(!$rootScope.user) {
             $rootScope.user = {};
         }
@@ -37,7 +36,7 @@ angular.module('app.feedCtrl',['app.services','ngLodash','ngCordova'])
       $scope.loadModals();
 
     });
-     
+
 	$scope.getCats = function() {
 		var gender = $rootScope.currentGender ? $rootScope.currentGender : $rootScope.user.gender ? $rootScope.user.gender : 'male';
 		$scope.categories = PriceAPI.categories();
@@ -56,7 +55,7 @@ angular.module('app.feedCtrl',['app.services','ngLodash','ngCordova'])
 		}
 
     };
-    
+
     $scope.loadNextPage = function() {
         console.log('should load next page');
         $rootScope.page_no++;
@@ -110,7 +109,7 @@ angular.module('app.feedCtrl',['app.services','ngLodash','ngCordova'])
         $ionicLoading.show();
         $rootScope.refresh();
     };
-    
+
     $scope.selectedCategory = function(idx) {
         console.log('selected category: ' + $scope.catNames[idx].name);
         $scope.setCategory($scope.catNames[idx].name);
