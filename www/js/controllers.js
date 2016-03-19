@@ -71,26 +71,6 @@ angular.module('app.controllers', ['app.services','ngLodash','truncate','ngCordo
             console.log(e);
         });
 	});
-
-	    $scope.openSharing = function(product){
-      console.log('Sharing.....')
-      $scope.shareModal.show();
-    };
-
-    $scope.facebookShare = function(product){
-      console.log('Sharing to fb...');
-      window.plugins.socialsharing.shareViaFacebook(product.title, product.photo_set[0].url_large, null /* url */, function() {console.log('share ok')}, function(errormsg){alert(errormsg)})
-    };
-    $scope.twitterShare = function(product){
-      window.plugins.socialsharing.shareViaTwitter(product.title, product.photo_set[0].url_large, null /* url */, function() {console.log('share ok')}, function(errormsg){alert(errormsg)})
-    };
-    $scope.instagramShare = function(product){
-      window.plugins.socialsharing.shareViaInstagram(product.title, product.photo_set[0].url_large, null /* url */, function() {console.log('share ok')}, function(errormsg){alert(errormsg)})
-    };
-    $scope.pinterestShare = function(product){
-      window.plugins.socialsharing.shareViaPinterest(product.title, product.photo_set[0].url_large, null /* url */, function() {console.log('share ok')}, function(errormsg){alert(errormsg)})
-    };
-
 })
 
 .controller('WelcomeCtrl',function($rootScope,$scope,$state,localStorageService,$cordovaFacebook,$http,$ionicPlatform,PriceAPI,$window) {
@@ -181,7 +161,7 @@ angular.module('app.controllers', ['app.services','ngLodash','truncate','ngCordo
   // Ideally, it should be wrapped up inside a function in order to
   // have just one instance but single instance was not working flawlessly
   // with events inside directives
-  
+
   $ionicModal.fromTemplateUrl('templates/productDetails.html', function($ionicModal) {
       $scope.productModal = $ionicModal;
   }, {
@@ -222,6 +202,11 @@ angular.module('app.controllers', ['app.services','ngLodash','truncate','ngCordo
       $rootScope.activeSlide = 1;
       $ionicScrollDelegate.$getByHandle('suggestionScroller').scrollTo(0,0,false);
   }
+  $scope.openSharing = function(product){
+    console.log('Sharing.....')
+    $rootScope.shareModal.show();
+  };
+
 })
 
 .controller('filtersCtrl',function($scope,$rootScope,$state) {
