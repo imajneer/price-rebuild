@@ -156,52 +156,6 @@ angular.module('app.controllers', ['app.services','ngLodash','truncate','ngCordo
 
 })
 
-.controller('LoginCtrl',function($rootScope,$scope,$state,$ionicLoading) {
-    $scope.user = {};
-    $scope.justRegistered = false;
-
-$scope.login = function(provider) {
-    console.log($scope.user);
-    $ionicLoading.show({template: 'signing in...'});
-    Ionic.Auth.login(authProvider, authSettings, $scope.user)
-      .then(authSuccess, authFailure);
-  };
-
-  var authProvider = 'basic';
-  var authSettings = { 'remember': $scope.remember };
-
-
-  function authSuccess(user) {
-      console.log(user);
-        $ionicLoading.hide();
-
-      $rootScope.user = user;
-      $state.go('tabs.feed');
-      if($scope.justRegistered) {
-//         $state.go('shipping');
-      } else {
-
-        }
-  };
-
-  function authFailure(errors) {
-        $ionicLoading.show({template: 'registering...'});
-        Ionic.Auth.signup($scope.user).then(signupSuccess, signupFailure);
-    };
-
-
-  function signupSuccess(user) {
-    $scope.justRegistered = true;
-    console.log(user);
-    $scope.login();
-  }
-
-  function signupFailure(response) {
-      console.log('failed to sign up user');
-      console.log(response);
-  }
-
-})
 .controller('ShippingCtrl',function($rootScope,$scope,$state) {
 
     $scope.saveInfo = function() {
@@ -215,7 +169,7 @@ $scope.login = function(provider) {
 
 })
 
-.controller('feedItemCtrl',function($rootScope,$scope,$state,$ionicLoading,$scope,$http,PriceAPI,$ionicModal,$ionicScrollDelegate, $cordovaInAppBrowser,Util) {
+.controller('feedItemCtrl',function($rootScope,$state,$ionicLoading,$scope,$http,PriceAPI,$ionicModal,$ionicScrollDelegate, $cordovaInAppBrowser,Util) {
 	
 	//load util singleton with openProduct and buyNow functions
 	$scope.util = Util;

@@ -2,7 +2,9 @@ angular.module('app.services', ['ngResource','LocalStorageModule','ngLodash'])
 
 
 .factory('PriceAPI',function($resource,$rootScope,$http,lodash,Favs,$window) {
-
+    if(!$rootScope.user) {
+        $rootScope.user = {};
+    }
     return {
         item: $resource('http://staging12.getpriceapp.com' + '/item-details/:id/'),
         items: items,
@@ -16,7 +18,7 @@ angular.module('app.services', ['ngResource','LocalStorageModule','ngLodash'])
     function categories() {
 	    var gender = $rootScope.currentGender ? $rootScope.currentGender : $rootScope.user.gender ? $rootScope.user.gender : 'male';
 		var catImg = [];
-		for(i = 0; i < 6; i++)
+		for(var i = 0; i < 6; i++)
         	catImg.push('img/cats/' + gender + '/img' + (i+1).toString() + '.svg');
          return {
             female: [
@@ -174,7 +176,7 @@ angular.module('app.services', ['ngResource','LocalStorageModule','ngLodash'])
           console.log('got favs...');
           
           $rootScope.favs = res.data;
-          for(item in $rootScope.favs){
+          for(var item in $rootScope.favs){
             item.isFavorite = true; // ideally it can be set at server side
           }
       },function(err) {
