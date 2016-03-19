@@ -1,10 +1,54 @@
+<!--
       <header class="bar bar-header bar-dark">
           <div class="button button-clear" ng-click="cancelFilters()">Cancel</div>
           <div class="button button-clear" ng-click="applyFilters()">Apply</div>
         </header>
-<ion-content overflow-scroll="true" padding="false" class="has-header filters-modal" scroll="true">
+-->
+<!-- <ion-content overflow-scroll="true" padding="false" class="has-header filters-modal" scroll="true"> -->
+
+  <div ui-vew>  
+	<ion-side-menus>
+        
+        <ion-side-menu-content>
+          <ion-nav-bar class="bar-dark">
+          </ion-nav-bar>
+          <ion-nav-view name="menuContent"></ion-nav-view>
+        </ion-side-menu-content> 
+      
+
+        <ion-side-menu side="left">
+          <ion-header-bar class="bar-dark">
+          </ion-header-bar>
+          <ion-content class="filters-leftside" overflow-scroll="true" padding="false" class="has-header filters-modal" scroll="true">
+            <ul class="list filters-leftlist">
+              <a ui-sref="filters.price" class="item"><i class="icon ion-ios-pricetag"></i>
+	              <br><p class="filters-icontag">Price</p></a>
+              <a ui-sref="filters.size" class="item"><i class="icon ion-ios-list"></i>
+	              <br><p class="filters-icontag">Size</p></a>
+              <a ui-sref="filters.category" class="item"><i class="icon ion-bowtie"></i>
+	              <br><p class="filters-icontag">Category</p></a>
+              <a ui-sref="filters.color"class="item"><i class="icon ion-paintbrush"></i>
+	              <br><p class="filters-icontag">Color</p></a>
+              <a ui-sref="filters.condition" class="item"><i class="icon ion-ios-search"></i>
+	              <br><p class="filters-icontag">Condition</p></a>
+            </ul>
+          </ion-content>
+          
+        </ion-side-menu>
+        
+      </ion-side-menus>
+		<ion-footer-bar align-title="center" class="bar-dark">
+			<div class="buttons">
+				<button class="button button-clear">Reset</button>
+			</div>		
+			<h1 class="title"><button class="button button-clear">Apply</button></h1>
+			<div class="buttons">
+				<button class="button button-clear">Cancel</button>
+			</div>			
+		</ion-footer-bar>
       
        
+<!--
     <div class="list">
 	    
 		<div class="item item-divider">
@@ -43,7 +87,7 @@
 	            	<ti-segmented-control-button ng-repeat="cat in catNames" class="button button-icon icon scroll-icon" ng-attr-title="cat"></ti-segmented-control-button>
 	            </ti-segmented-control>
 	        </ion-scroll>			
--->
+	        
 		</div>
 		
 		<div class="item item-divider">
@@ -63,56 +107,7 @@
   </label>
 		</div>
 </div>
+-->
 
-<!--
-   
--->
-    
-	    
-<!--
-	    <a class="item item-icon-left item-icon-right" ui-sref="filterprice">
-	    	<i class="icon ion-ios-pricetag"></i>
-			Price
-			<i class="icon ion-ios-arrow-forward"></i>
-	  	</a>
-	  	<a class="item item-icon-left item-icon-right" ui-sref="filtersize">
-	    	<i class="icon ion-ios-list"></i>
-			Size
-			<i class="icon ion-ios-arrow-forward"></i>
-	  	</a>
-	    <a class="item item-icon-left item-icon-right" ui-sref="filtercategory">
-	    	<i class="icon ion-bowtie"></i>
-			Category
-			<i class="icon ion-ios-arrow-forward"></i>
-	  	</a>
-	  	<a class="item item-icon-left item-icon-right" ui-sref="filtercolor">
-	    	<i class="icon ion-paintbrush"></i>
-			Color
-			<i class="icon ion-ios-arrow-forward"></i>
-	  	</a>
-	    <a class="item item-icon-left item-icon-right" ui-sref="filtercondition">
-	    	<i class="icon ion-ios-search"></i>
-			Condition
-			<i class="icon ion-ios-arrow-forward"></i>
-	  	</a>
--->
-<!--
-	   	<div class="col-50">
-		   	<ul class="list">
-			   	<li class="item">Price</li>
-			   	<li class="item">Size</li>
-			   	<li class="item">Category</li>
-			   	<li class="item">Color</li>
-			   	<li class="item">Condition</li>
-			</ul>
-	   	</div>
-	   	<div class="col-50">
-		   	<div id="filter-price">Price</div>
-		   	<div id="filter-size">Size</div>
-		   	<div id="filter-category">Category</div>
-		   	<div id="filter-color">Color</div>
-		   	<div id="filter-condition">Condition</div>
-	   	</div>
--->
-</ion-content>
+</div>
 
