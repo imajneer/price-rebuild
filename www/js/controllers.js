@@ -46,7 +46,7 @@ angular.module('app.controllers', ['app.services','ngLodash','truncate','ngCordo
     }
 })
 
-.controller('itemViewCtrl',function($scope,$stateParams,$ionicLoading,$http,$rootScope,$state,Util) {
+.controller('itemViewCtrl',function($scope,$stateParams,$ionicLoading,$http,$rootScope,$state,Util,$ionicModal) {
 
 	$scope.util = Util;
     $scope.card = {
@@ -71,6 +71,31 @@ angular.module('app.controllers', ['app.services','ngLodash','truncate','ngCordo
             console.log(e);
         });
 	});
+	
+	    $scope.openSharing = function(product){
+      console.log('Sharing.....')
+      // $scope.shareModal.show();
+      $ionicModal.fromTemplateUrl('templates/share.html').then(function($ionicModal) {
+        $scope.shareModal = $ionicModal;
+        $scope.shareModal.show();
+      });
+    };
+
+    $scope.facebookShare = function(product){
+      console.log('Sharing to fb...');
+      console.log($rootScope.currentProduct);
+      window.plugins.socialsharing.shareViaFacebook($rootScope.currentProduct.title, $rootScope.currentProduct.photo_set[0].url_large, null /* url */, function() {console.log('share ok')}, function(errormsg){alert(errormsg)})
+    };
+    $scope.twitterShare = function(product){
+      window.plugins.socialsharing.shareViaTwitter($rootScope.currentProduct.title, $rootScope.currentProduct.photo_set[0].url_large, null /* url */, function() {console.log('share ok')}, function(errormsg){alert(errormsg)})
+    };
+    $scope.instagramShare = function(product){
+      window.plugins.socialsharing.shareViaInstagram($rootScope.currentProduct.title, $rootScope.currentProduct.photo_set[0].url_large, null /* url */, function() {console.log('share ok')}, function(errormsg){alert(errormsg)})
+    };
+    $scope.pinterestShare = function(product){
+      window.plugins.socialsharing.shareViaPinterest($rootScope.currentProduct.title, $rootScope.currentProduct.photo_set[0].url_large, null /* url */, function() {console.log('share ok')}, function(errormsg){alert(errormsg)})
+    };
+
 })
 
 .controller('WelcomeCtrl',function($rootScope,$scope,$state,localStorageService,$cordovaFacebook,$http,$ionicPlatform,PriceAPI,$window) {

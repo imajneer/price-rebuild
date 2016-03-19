@@ -119,18 +119,4 @@ angular.module('app.feedCtrl',['app.services','ngLodash','ngCordova'])
 		$scope.cancelFilter = function(){
 			$state.go('tabs.feed')
 		}
-
-	  $scope.facebookShare = function(product){
-	    console.log('Sharing to fb...');
-	    window.plugins.socialsharing.shareViaFacebook(product.title, product.photo_set[0].url_large, null /* url */, function() {console.log('share ok')}, function(errormsg){alert(errormsg)})
-	  };
-	  $scope.twitterShare = function(product){
-	    window.plugins.socialsharing.shareViaTwitter(product.title, product.photo_set[0].url_large, null /* url */, function() {console.log('share ok')}, function(errormsg){alert(errormsg)})
-	  };
-	  $scope.instagramShare = function(product){
-	    window.plugins.socialsharing.shareViaInstagram(product.title, product.photo_set[0].url_large, null /* url */, function() {console.log('share ok')}, function(errormsg){alert(errormsg)})
-	  };
-	  $scope.pinterestShare = function(product){
-	    window.plugins.socialsharing.shareViaPinterest(product.title, product.photo_set[0].url_large, null /* url */, function() {console.log('share ok')}, function(errormsg){alert(errormsg)})
-	  };
 })
