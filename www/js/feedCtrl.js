@@ -4,8 +4,8 @@ angular.module('app.feedCtrl',['app.services','ngLodash','ngCordova'])
 	 console.log('loaded feed controller...');
     $scope.$on('$ionicView.beforeEnter',function() {
         console.log('before enter...');
-				if(true){
-        // if(localStorageService.get('accessToken')) {
+				// if(true){
+        if(localStorageService.get('accessToken')) {
 	        //should already be signed in
         } else if(ionic.Platform.isIOS() || ionic.Platform.isAndroid())  {
             $state.go('signin'); //this is commented out to support web dev
