@@ -39,7 +39,13 @@ angular.module('app.directives', ['app.controllers'])
                   easing: 'linear',
                   duration: 2500,
                   delimiter: ',',
-                  rounding: 2
+                  rounding: 2,
+                  onComplete: function(){
+                    $scope.getItReady = true;
+                  },
+                  onStart: function(){
+                    $scope.getItReady = false;
+                  }
                 }
                 $(element).numerator( options )
               }
@@ -139,10 +145,9 @@ angular.module('app.directives', ['app.controllers'])
                   $(element).text('Etsy.com')
 
               }, 15 * factor);
-              
+
               setTimeout(function() {
                   $scope.currentProduct.store_name = store_name
-
               }, 9 * factor);
             }
           });
