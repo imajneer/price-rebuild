@@ -749,3 +749,10 @@ Filters CSS
 .top-header .buttons .btn-apply{
 	float: right;
 }
+.footer-btn{
+	text-align: center;
+	width: 100%;
+}
+.footer-btn .btn-reset{
+	color: #E00 !important;
+}
