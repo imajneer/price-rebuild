@@ -139,7 +139,7 @@ angular.module('app.directives', ['app.controllers'])
                   $(element).text('Etsy.com')
 
               }, 15 * factor);
-              
+
               setTimeout(function() {
                   $scope.currentProduct.store_name = store_name
 
@@ -149,4 +149,16 @@ angular.module('app.directives', ['app.controllers'])
 
         } //DOM manipulation
     }
+})
+.directive('prTopBar', function(){
+  return {
+    restrict: 'E', //<feed-item></feed-item>
+    link: function($scope, element, attrs){
+      console.log('prTopBar...')
+    },
+    scope: {
+    },
+    templateUrl: 'templates/filter/top-bar.html',
+    controller: 'feedCtrl'
+  }
 });

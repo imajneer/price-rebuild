@@ -734,3 +734,18 @@ Filters CSS
     display: none;
   }
 }
+
+.top-header{
+	background-color: #444;
+	height: 44px;
+	width: 100%;
+}
+.top-header .buttons{
+	text-align: center;
+}
+.top-header .buttons .btn-cancel{
+	float: left;
+}
+.top-header .buttons .btn-apply{
+	float: right;
+}
