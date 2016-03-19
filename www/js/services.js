@@ -78,7 +78,6 @@ angular.module('app.services', ['ngResource','LocalStorageModule','ngLodash'])
             success: function(res) {
                
 //               $rootScope.resData = angular.toJson(res);
-                $window.alert('got response...');
                 $rootScope.leftVal = 100;
                 console.log(res[0]);
                 console.log(res.data);
