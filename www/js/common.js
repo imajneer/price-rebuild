@@ -9,7 +9,7 @@ angular.module('app.common', [])
     }
     var loadTimeout = false,
     	itemLoaded = false;
-    
+
     function openProduct(product) {
 	    console.log('should open product');
 	     loadTimeout = false;
@@ -36,9 +36,9 @@ angular.module('app.common', [])
       $state.go('item');
       itemLoaded = true
     });
-    
+
   }
-  
+
   function buyNow(product){ //this should also be moved to a util singleton
     console.log('Buying now...')
     backImg = 'img/back.png'
@@ -84,5 +84,5 @@ angular.module('app.common', [])
     });
 
   }
-  
+
 });

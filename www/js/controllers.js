@@ -47,7 +47,7 @@ angular.module('app.controllers', ['app.services','ngLodash','truncate','ngCordo
 })
 
 .controller('itemViewCtrl',function($scope,$stateParams,$ionicLoading,$http,$rootScope,$state,Util) {
-	
+
 	$scope.util = Util;
     $scope.card = {
         number: '4242424242424242',
@@ -58,9 +58,9 @@ angular.module('app.controllers', ['app.services','ngLodash','truncate','ngCordo
 	$scope.goBack = function() {
 		$state.go($rootScope.previousState);
 	}
-    
+
     console.log('loaded item view controller');
-    
+
     $scope.$on('$ionicView.beforeEnter',function() {
 		$http.get($rootScope.hostUrl + '/item/similar-category/' + $rootScope.prodId + '/').then(function(data) {
             // $rootScope.currentSuggestions = data.data;
@@ -71,7 +71,7 @@ angular.module('app.controllers', ['app.services','ngLodash','truncate','ngCordo
             console.log(e);
         });
 	});
-	
+
 	    $scope.openSharing = function(product){
       console.log('Sharing.....')
       $scope.shareModal.show();
@@ -105,12 +105,12 @@ angular.module('app.controllers', ['app.services','ngLodash','truncate','ngCordo
             $scope.accessToken = success.authResponse.accessToken;
             localStorageService.set('userId',success.authResponse.userID);
             $rootScope.user.id = localStorageService.get('userId');
-            
 
-            
+
+
 			$cordovaFacebook.api('/me?fields=email,gender,name,age_range,location&access_token='+success.authResponse.accessToken).then(
             function(response) {
-	            
+
 	           localStorageService.set('fullName',response.name);
 			   $rootScope.user.fullName = response.name;
 
@@ -133,7 +133,7 @@ angular.module('app.controllers', ['app.services','ngLodash','truncate','ngCordo
 	           email: response.email
            });
 */
-			   
+
 			},
             function(error) {
                 console.log(error);
@@ -141,7 +141,7 @@ angular.module('app.controllers', ['app.services','ngLodash','truncate','ngCordo
           	});
 
         });
-            
+
         $state.go('tabs.feed');
 
         $http.get('https://graph.facebook.com/' + $rootScope.user.id + '/picture?redirect=false&width=500').then(function(res) {
@@ -172,14 +172,43 @@ angular.module('app.controllers', ['app.services','ngLodash','truncate','ngCordo
 })
 
 .controller('feedItemCtrl',function($rootScope,$state,$ionicLoading,$scope,$http,PriceAPI,$ionicModal,$ionicScrollDelegate, $cordovaInAppBrowser,Util) {
-	
-	//load util singleton with openProduct and buyNow functions
-	$scope.util = Util;
-	
   console.log('loaded feedItemCtrl...');
   $scope.loadTimeout = false;
 
-  
+	//load util singleton with openProduct and buyNow functions
+	$scope.util = Util;
+
+  $scope.openProduct = function(product) {
+    $ionicLoading.show();
+    console.log('Show......')
+    console.log(product);
+    var productId =  product.itemID ? product.itemID : (product.id ? product.id : product.pk);
+
+    console.log('opening product with id: ' + productId);
+
+    $http.get($rootScope.hostUrl + '/item-details/' + productId+'/').then(function(res) {
+      console.log('should get item data...');
+      console.log(res);
+      $rootScope.currentProduct = res.data;
+      // $scope.currentProduct = res.data;
+      resetProductModal();
+      $rootScope.productModal.show();
+    })
+
+
+    PriceAPI.item.get({id: productId},function(data) {
+    });
+
+    $http.get($rootScope.hostUrl + '/item/similar-category/' + productId + '/').then(function(data) {
+        $rootScope.currentSuggestions = data.data;
+        // $scope.currentSuggestions = data.data;
+        console.log(data.data);
+        $ionicLoading.hide();
+    },function(e) {
+        console.log(e);
+    });
+
+  }
 
   function resetProductModal() {
       $ionicScrollDelegate.$getByHandle('modalContent').scrollTop(true);
@@ -192,9 +221,9 @@ angular.module('app.controllers', ['app.services','ngLodash','truncate','ngCordo
 
 .controller('filtersCtrl',function($scope,$rootScope,$state) {
 
-   
+
     $scope.selectColor = function(color) {
-	    
+
     }
     $scope.slider = {
         min: 5,
