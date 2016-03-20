@@ -188,7 +188,7 @@ angular.module('app.controllers', ['app.services','ngLodash','truncate','ngCordo
   // Ideally, it should be wrapped up inside a function in order to
   // have just one instance but single instance was not working flawlessly
   // with events inside directives
-  function loadProductModal() {
+  $scope.loadProductModal = function() {
       return $ionicModal.fromTemplateUrl('templates/productDetails.html', function($ionicModal) {
         $scope.productModal = $ionicModal;
         $ionicModal.show();
@@ -212,9 +212,9 @@ angular.module('app.controllers', ['app.services','ngLodash','truncate','ngCordo
       $scope.currentProduct = res.data;
       
       if(angular.isUndefined($scope.productModal))
-         loadProductModal().show();
+         $scope.loadProductModal().show();
       else {
-        resetProductModal();
+        $scope.resetProductModal();
         $scope.productModal.show();
       } 
 
@@ -232,7 +232,7 @@ angular.module('app.controllers', ['app.services','ngLodash','truncate','ngCordo
     });
   }
 
-  function resetProductModal() {
+  $scope.resetProductModal = function() {
       $ionicScrollDelegate.$getByHandle('modalContent').scrollTop(true);
       $rootScope.activeSlide = 1;
       $ionicScrollDelegate.$getByHandle('suggestionScroller').scrollTo(0,0,false);
