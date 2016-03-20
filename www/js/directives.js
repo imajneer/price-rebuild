@@ -17,7 +17,6 @@ angular.module('app.directives', ['app.controllers'])
   return {
     restrict: 'E', //<feed-item></feed-item>
     link: function($scope, element, attrs){
-      console.log('feed-item...')
     },
     scope: {
       product: '=item'
