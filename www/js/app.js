@@ -28,18 +28,6 @@ angular.module('app', ['ionic','ionic.service.core', 'app.controllers', 'app.rou
       StatusBar.styleDefault();
     }
     
-    $rootScope.hostUrl = 'http://staging12.getpriceapp.com';
-    $rootScope.user = {};
-    
-    if(localStorageService.keys()) {
-        $rootScope.user.photoUrl = localStorageService.get('photoUrl');
-        $rootScope.user.id = localStorageService.get('userId');
-        $rootScope.user.accessToken = localStorageService.get('accessToken');
-        $rootScope.user.fullName = localStorageService.get('fullName');
-        $rootScope.user.email = localStorageService.get('email');
-        $rootScope.user.gender = localStorageService.get('gender');
-        $rootScope.user.location = localStorageService.get('location');        
-    }
      $log.log('got thru init function in app.run');
   }
 })

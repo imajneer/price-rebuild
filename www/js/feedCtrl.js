@@ -14,6 +14,19 @@ angular.module('app.feedCtrl',['app.services','ngLodash','ngCordova'])
         if(angular.isUndefined($rootScope.user)) {
             $rootScope.user = {};
         }
+        $rootScope.hostUrl = 'http://staging12.getpriceapp.com';
+        $rootScope.user = {};
+    
+        if(localStorageService.keys()) {
+            $log.log('got keys from localStorage: ' + localStorageService.keys().length);
+            $rootScope.user.photoUrl = localStorageService.get('photoUrl');
+            $rootScope.user.id = localStorageService.get('userId');
+            $rootScope.user.accessToken = localStorageService.get('accessToken');
+            $rootScope.user.fullName = localStorageService.get('fullName');
+            $rootScope.user.email = localStorageService.get('email');
+            $rootScope.user.gender = localStorageService.get('gender');
+            $rootScope.user.location = localStorageService.get('location');        
+        }
 
         
         $scope.canReload = true;
