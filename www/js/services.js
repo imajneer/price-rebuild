@@ -78,8 +78,7 @@ angular.module('app.services', ['ngResource','LocalStorageModule','ngLodash'])
             success: function(res) {
                
 //               $rootScope.resData = angular.toJson(res);
-                console.log(res[0]);
-                console.log(res.data);
+                console.log(res);
                 var products = angular.fromJson(res)[0].products;
                 if(page == 1)
                     $rootScope.products = [];

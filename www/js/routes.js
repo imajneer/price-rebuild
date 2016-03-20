@@ -37,7 +37,8 @@ angular.module('app.routes',[])
 	
 	.state('filters.menu', {
       url: '/filters/menu',
-      templateUrl: 'templates/filters.html'
+      templateUrl: 'templates/filters.html',
+      controller: 'filterCtrl'
     })
 
     

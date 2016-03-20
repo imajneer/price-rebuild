@@ -57,12 +57,10 @@ angular.module('app.feedCtrl',['app.services','ngLodash','ngCordova'])
     };
        $scope.loadNextPage = function() {
         console.log('should load next page');
-            $rootScope.rightVal = 2;
             $rootScope.page_no = 1;
         if($rootScope.favs) {
             $scope.loadPage($rootScope.page_no);
         } else {
-            $rootScope.rightVal = 3;
             $.ajax({
                    method:'GET',
                    url: 'http://staging12.getpriceapp.com' + '/favourites/list?user=76',
@@ -73,12 +71,10 @@ angular.module('app.feedCtrl',['app.services','ngLodash','ngCordova'])
                         for(var item in $rootScope.favs){
                             item.isFavorite = true; // ideally it can be set at server side
                         }
-                        $rootScope.leftVal = 2;
                         $scope.loadPage($rootScope.page_no);
 
                    }
                    });
-            $rootScope.rightVal = 4;
             }
         }    
     $scope.loadPage = function(page) {
@@ -105,7 +101,7 @@ angular.module('app.feedCtrl',['app.services','ngLodash','ngCordova'])
 
     $scope.openFilters = function() {
 	    $rootScope.previousState = $state.current.name;
-	    $state.go('filters.menu');
+	    $state.go('filters.price');
     };
 
     $scope.loadModals = function() {
@@ -131,6 +127,10 @@ angular.module('app.feedCtrl',['app.services','ngLodash','ngCordova'])
     };
 
     $scope.cancelFilter = function(){
-        $state.go('tabs.feed')
+        $state.go('tabs.feed');
+    }
+    
+    $scope.applyFilters = function() {
+        $state.go('tabs.feed');
     }
 });
