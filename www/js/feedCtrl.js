@@ -18,12 +18,15 @@ angular.module('app.feedCtrl',['app.services','ngLodash','ngCordova'])
         
         $scope.canReload = true;
         $rootScope.products = [];
-        var gender = localStorageService.get('gender');
-        $rootScope.currentGender = gender ? gender : 'male';
+//         var gender = localStorageService.get('gender');
+        $rootScope.currentGender = 'male';
         $rootScope.page_no = 0;
 		$scope.getCats();
 		
 		
+      $scope.loadModals();
+      $scope.loadNextPage();
+    });
 
   $rootScope.$watch('favs', function(newVal, oldVal){
         $log.log('favs loaded new value');
@@ -40,10 +43,6 @@ angular.module('app.feedCtrl',['app.services','ngLodash','ngCordova'])
           }
       });
 
-      $scope.loadModals();
-      $scope.loadNextPage();
-    });
-
 	$scope.getCats = function() {
         var gender = 'male'; //var gender = $rootScope.currentGender ? $rootScope.currentGender : $rootScope.user.gender ? $rootScope.user.gender : 'male'; 
 		$scope.categories = PriceAPI.categories();
@@ -52,21 +51,25 @@ angular.module('app.feedCtrl',['app.services','ngLodash','ngCordova'])
     }
 
     $rootScope.refresh = function()  {
-	  if($scope.canReload) {
+
 		  $rootScope.page_no = 0;
 	      $scope.loadNextPage();
-		  $scope.canReload = false;
-		  $timeout(function() {
-          	$scope.canReload = true;
-		  },1000);
-		}
-
-    };
+    }
 
        $scope.loadNextPage = function() {
-        $log.log('should load next page');
-            $rootScope.page_no = 1;
-        if($rootScope.favs) {
+           $log.log('trying to load next page');
+	  if($scope.canReload) {           
+          $log.log('should load next page');
+          $rootScope.page_no = 1;
+          $scope.loadPage($rootScope.page_no);
+          $scope.canReload = false;
+		  $timeout(function() {
+          	$scope.canReload = true;
+		  },300);
+        }
+
+    /*
+    if($rootScope.favs) {
             $scope.loadPage($rootScope.page_no);
         } else {
             $.ajax({
@@ -84,8 +87,17 @@ angular.module('app.feedCtrl',['app.services','ngLodash','ngCordova'])
                    }
                    });
             }
+*/
         }    
     $scope.loadPage = function(page) {
+        PriceAPI.items(page).then(function(res){ 
+            $log.log("success",res);
+            $rootScope.products = res;
+        },function(err) {
+            
+            $log.log("error",err);
+            
+        })
         PriceAPI.loadPage(page);
     }
 
