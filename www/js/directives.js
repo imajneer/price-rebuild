@@ -83,7 +83,7 @@ angular.module('app.directives', ['app.controllers'])
     return {
         restrict: 'A', //E = element, A = attribute, C = class, M = comment
         link: function ($scope, element, attrs) {
-          console.log('Store...')
+          console.log('loaded store numerator');
           $scope.$watch('currentProduct', function(newVal, oldVal){
             if (newVal !== oldVal) {
               factor = 150;
