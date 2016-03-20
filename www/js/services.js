@@ -3,6 +3,7 @@ angular.module('app.services', ['ngResource','LocalStorageModule','ngLodash'])
 
 .factory('PriceAPI',function($resource,$rootScope,$http,lodash,Favs,$window,localStorageService,$ionicLoading,$log) {
     
+           
     return {
         item: $resource('http://staging12.getpriceapp.com' + '/item-details/:id/'),
         items: items,
@@ -11,17 +12,17 @@ angular.module('app.services', ['ngResource','LocalStorageModule','ngLodash'])
         },
         categories: categories,
         auth: auth,
-        loadPage: loadPage
+        loadPage: loadPage,
     }
     
-    var feedParams = function(page) {
-        $log('checking variables...');
-        $log('page: ' + page);
-        $log('min_price',$rootScope.min_price);
-        $log('max_price',$rootScope.max_price);
-        $log('category',$rootScope.currentCategory);
-        $log('gender',$rootScope.currentGender);
-        $log('sort',$rootScope.sortBy);
+     function feedParams(page) {
+        $log.log('checking variables...');
+        $log.log('page: ' + page);
+        $log.log('min_price',$rootScope.min_price);
+        $log.log('max_price',$rootScope.max_price);
+        $log.log('category',$rootScope.currentCategory);
+        $log.log('gender',$rootScope.currentGender);
+        $log.log('sort',$rootScope.sortBy);
         return  {
                 'price_min' : angular.isDefined($rootScope.min_price) ? $rootScope.min_price : 0,
                 'price_max' : angular.isDefined($rootScope.max_price) ? $rootScope.max_price : '',
@@ -36,7 +37,9 @@ angular.module('app.services', ['ngResource','LocalStorageModule','ngLodash'])
 
 
             }
-        };
+        }
+
+
     
     function categories() {
 	    var gender = 'male';
@@ -92,10 +95,10 @@ angular.module('app.services', ['ngResource','LocalStorageModule','ngLodash'])
         $.ajax({
             method: 'GET',
             url: 'http://staging12.getpriceapp.com' + '/item/list/',
-            params: feedParms(page),
+            params: feedParams(page),
             success: function(res) {
 //               $rootScope.resData = angular.toJson(res);
-                $log('feed response:',res);
+                $log.log('feed response:',res);
                 var products = angular.fromJson(res)[0].products;
                 if(page == 1)
                     $rootScope.products = [];
@@ -107,7 +110,7 @@ angular.module('app.services', ['ngResource','LocalStorageModule','ngLodash'])
                 $rootScope.products = lodash.concat($rootScope.products,pageProds);
                 $rootScope.$broadcast('scroll.refreshComplete');
                 $rootScope.$broadcast('scroll.infiniteScrollComplete');
-                        $ionicLoading.hide();
+                $ionicLoading.hide();
 
 
             },
@@ -120,7 +123,7 @@ angular.module('app.services', ['ngResource','LocalStorageModule','ngLodash'])
 
     
     function items(page) {
-        $log('refresh products');
+        $log.log('refresh products');
         var request = $http( {
             method: 'GET',
             url: 'http://staging12.getpriceapp.com' + '/item/list/',
@@ -128,21 +131,21 @@ angular.module('app.services', ['ngResource','LocalStorageModule','ngLodash'])
         });
 
         return request.then( function(data) {
-            $log('got list data...');
-            $log(data);
+            $log.log('got list data...');
+            $log.log(data);
             return lodash.map(data.data[0].products,function(product) {
                 product.fields.isFavorite = Favs.contains(product.fields.itemID);        
                 return product.fields; // hardcoded to remove the first element to prevent bug
             });
 
-            $log($rootScope.products);
+            $log.log($rootScope.products);
             $rootScope.$broadcast('scroll.refreshComplete');
 
             },
             function(e) {
                 return e;
-                $log('error getting items...');
-                $log(e);
+                $log.log('error getting items...');
+                $log.log(e);
             });
 
     }
@@ -158,7 +161,7 @@ angular.module('app.services', ['ngResource','LocalStorageModule','ngLodash'])
 	            localStorageService.set('priceId',data.id);
 	            localStorageService.set('priceToken',data.token);
 	            $window.alert(data.id);
-                $log('got data...');
+                $log.log('got data...');
                 var getitemdata = JSON.stringify(data);
                 //alert(JSON.stringify(data))
 
@@ -168,7 +171,7 @@ angular.module('app.services', ['ngResource','LocalStorageModule','ngLodash'])
             },
 
             error: function(xhr, status, error) {
-                $log(status);
+                $log.log(status);
                 // alert(xhr.status);
                 //alert(error);
                 //alert(xhr.responseText);
@@ -206,7 +209,7 @@ angular.module('app.services', ['ngResource','LocalStorageModule','ngLodash'])
       });
       var request = $http.post('http://staging12.getpriceapp.com' + '/favourites/add', data, config);
       return (request.then(function(res) {
-        $log(res);
+        $log.log(res);
         getList();
         return res.data;
       }, function(err) {
@@ -217,22 +220,22 @@ angular.module('app.services', ['ngResource','LocalStorageModule','ngLodash'])
 
     function getList() {
         $http.get('http://staging12.getpriceapp.com' + '/favourites/list?user=76').then(function(res) {
-          $log('got favs...');
+          $log.log('got favs...');
           
           $rootScope.favs = res.data;
           for(var item in $rootScope.favs){
             item.isFavorite = true; // ideally it can be set at server side
           }
       },function(err) {
-          $log(err);
+          $log.log(err);
       });
     }
     
     function list() {
       var request = $http.get('http://staging12.getpriceapp.com' + '/favourites/list?user=76');
       return (request.then(function(res) {
-          $log('fetched favs...');
-        $log(res);
+          $log.log('fetched favs...');
+        $log.log(res);
         return res.data;
       }, function(err) {
         return err;
@@ -250,11 +253,11 @@ angular.module('app.services', ['ngResource','LocalStorageModule','ngLodash'])
             type: "POST",
             dataType: "json",
             success: function(data){
-                $log(data);
+                $log.log(data);
                 getList();
                 },
             error: function(data){
-                $log(data)
+                $log.log(data)
                 }
         })
     }
