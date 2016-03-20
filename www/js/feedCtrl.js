@@ -73,8 +73,8 @@ angular.module('app.feedCtrl',['app.services','ngLodash','ngCordova'])
                $scope.loadPage($rootScope.page_no);
                $scope.canReload = false;
                $timeout(function() {
-               $scope.canReload = true;
-		  },300);
+                    $scope.canReload = true;
+               },300);
         }
 
     /*
@@ -107,7 +107,6 @@ angular.module('app.feedCtrl',['app.services','ngLodash','ngCordova'])
             $log.log("error",err);
             
         })
-        PriceAPI.loadPage(page);
     }
 
     var filterButtons = [
