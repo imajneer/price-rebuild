@@ -14,7 +14,15 @@ angular.module('app.services', ['ngResource','LocalStorageModule','ngLodash'])
         loadPage: loadPage
     }
     
-    var feedParams =  {
+    var feedParams = function(page) {
+        $log('checking variables...');
+        $log('page: ' + page);
+        $log('min_price',$rootScope.min_price);
+        $log('max_price',$rootScope.max_price);
+        $log('category',$rootScope.currentCategory);
+        $log('gender',$rootScope.currentGender);
+        $log('sort',$rootScope.sortBy);
+        return  {
                 'price_min' : angular.isDefined($rootScope.min_price) ? $rootScope.min_price : 0,
                 'price_max' : angular.isDefined($rootScope.max_price) ? $rootScope.max_price : '',
                 'category' : angular.isDefined($rootScope.currentCategory) ? $rootScope.currentCategory : '', //$rootScope.category
@@ -27,7 +35,8 @@ angular.module('app.services', ['ngResource','LocalStorageModule','ngLodash'])
 //                 'colors':['blue'] //colors may not be working yet
 
 
-            };
+            }
+        };
     
     function categories() {
 	    var gender = 'male';
@@ -79,15 +88,11 @@ angular.module('app.services', ['ngResource','LocalStorageModule','ngLodash'])
     }
     
     function loadPage(page) {
-        $log('checking variables...');
-        $log('min_price',$rootScope.min_price);
-        $log('max_price',$rootScope.max_price);
-        $log('category',$rootScope.currentCategory);
         
         $.ajax({
             method: 'GET',
             url: 'http://staging12.getpriceapp.com' + '/item/list/',
-            params: feedParms,
+            params: feedParms(page),
             success: function(res) {
 //               $rootScope.resData = angular.toJson(res);
                 $log('feed response:',res);
@@ -119,7 +124,7 @@ angular.module('app.services', ['ngResource','LocalStorageModule','ngLodash'])
         var request = $http( {
             method: 'GET',
             url: 'http://staging12.getpriceapp.com' + '/item/list/',
-            params: feedParams
+            params: feedParams(page)
         });
 
         return request.then( function(data) {
