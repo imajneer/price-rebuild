@@ -7,11 +7,11 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('app', ['ionic','ionic.service.core', 'app.controllers', 'app.routes', 'app.services','app.directives','ngResource','LocalStorageModule','ionic.contrib.ui.hscrollcards','ngIOS9UIWebViewPatch','ngCordova','ti-segmented-control','rzModule','app.feedCtrl','app.filterCtrls','app.common'])
 
-.run(function($ionicPlatform,$rootScope,localStorageService,$timeout,Util) {
+.run(function($ionicPlatform,$rootScope,localStorageService,$timeout,Util,$log,$window) {
     
-    console.log('ran run function in app');
+    $log.log('running run  function in app');
   $ionicPlatform.ready(function() {
-      console.log('platform ready under app...');
+      $log.log('platform ready under app...');
       init();
   
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -20,17 +20,17 @@ angular.module('app', ['ionic','ionic.service.core', 'app.controllers', 'app.rou
   });
   
   function init() {
-    if(window.cordova && window.cordova.plugins.Keyboard) {
+    if($window.cordova && $window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     }
-    if(window.StatusBar) {
+    if($window.StatusBar) {
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
     
     $rootScope.hostUrl = 'http://staging12.getpriceapp.com';
     $rootScope.user = {};
-
+    
     if(localStorageService.keys()) {
         $rootScope.user.photoUrl = localStorageService.get('photoUrl');
         $rootScope.user.id = localStorageService.get('userId');
@@ -38,9 +38,9 @@ angular.module('app', ['ionic','ionic.service.core', 'app.controllers', 'app.rou
         $rootScope.user.fullName = localStorageService.get('fullName');
         $rootScope.user.email = localStorageService.get('email');
         $rootScope.user.gender = localStorageService.get('gender');
-        $rootScope.user.location = localStorageService.set('location');        
+        $rootScope.user.location = localStorageService.get('location');        
     }
-
+     $log.log('got thru init function in app.run');
   }
 })
 .config(['$resourceProvider', function($resourceProvider) {
