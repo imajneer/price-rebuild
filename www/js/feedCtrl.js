@@ -3,7 +3,8 @@ angular.module('app.feedCtrl',['app.services','ngLodash','ngCordova'])
 
 	 $log.log('loaded feed controller...');
     $scope.$on('$ionicView.beforeEnter',function() {
-        $window.alert('open safari debugger');
+        if(ionic.Platform.isIOS()
+            $window.alert('open safari debugger');
         $log.log('before enter...');
         if(localStorageService.get('accessToken')) {
 	        //should already be signed in
