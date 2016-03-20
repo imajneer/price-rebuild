@@ -12,7 +12,7 @@ angular.module('app.services', ['ngResource','LocalStorageModule','ngLodash'])
         },
         categories: categories,
         auth: auth,
-        loadPage: loadPage,
+        loadPage: loadPage
     }
     
      function feedParams(page) {
