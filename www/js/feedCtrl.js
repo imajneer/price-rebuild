@@ -3,7 +3,7 @@ angular.module('app.feedCtrl',['app.services','ngLodash','ngCordova'])
 
 	 $log.log('loaded feed controller...');
     $scope.$on('$ionicView.beforeEnter',function() {
-        if(ionic.Platform.isIOS()
+        if(ionic.Platform.isIOS())
             $window.alert('open safari debugger');
         $log.log('before enter...');
         if(localStorageService.get('accessToken')) {
@@ -24,9 +24,14 @@ angular.module('app.feedCtrl',['app.services','ngLodash','ngCordova'])
 		$scope.getCats();
 		
 		
-/*
-  $rootScope.$watch('favs', function(newVal, oldVal){
 
+  $rootScope.$watch('favs', function(newVal, oldVal){
+        $log.log('favs loaded new value');
+        if(angular.isDefined($rootScope.products)) {
+            $log.log('products loaded: ' + $rootScope.products.length);
+        } else {
+            $log.log('products not loaded yet...');
+        }
         if (newVal !== oldVal) {
             if($scope.shouldRefresh){
                 $log.log('trying to refresh again');
@@ -34,7 +39,7 @@ angular.module('app.feedCtrl',['app.services','ngLodash','ngCordova'])
             }
           }
       });
-*/
+
       $scope.loadModals();
       $scope.loadNextPage();
     });
@@ -57,6 +62,7 @@ angular.module('app.feedCtrl',['app.services','ngLodash','ngCordova'])
 		}
 
     };
+
        $scope.loadNextPage = function() {
         $log.log('should load next page');
             $rootScope.page_no = 1;
@@ -116,6 +122,7 @@ angular.module('app.feedCtrl',['app.services','ngLodash','ngCordova'])
     };
 
     $scope.setCategory = function(cat) {
+        $log.log('setting category',cat);
         if(cat === 'all') cat = '';
         $rootScope.products = [];
         $rootScope.currentCategory = cat;
