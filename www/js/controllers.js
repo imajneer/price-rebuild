@@ -186,14 +186,16 @@ angular.module('app.controllers', ['app.services','ngLodash','truncate','ngCordo
   // Ideally, it should be wrapped up inside a function in order to
   // have just one instance but single instance was not working flawlessly
   // with events inside directives
-
-  $ionicModal.fromTemplateUrl('templates/productDetails.html', function($ionicModal) {
-      $scope.productModal = $ionicModal;
-  }, {
-      scope: $scope,
-      animation: 'slide-in-up'
-  });
-
+  function loadProductModal() {
+      return $ionicModal.fromTemplateUrl('templates/productDetails.html', function($ionicModal) {
+        $scope.productModal = $ionicModal;
+        $ionicModal.show();
+      }, {
+          scope: $scope,
+          animation: 'slide-in-up'
+      });
+  }
+  
   // Bringing back the openProduct function from Util. As it has introduced a couple of issues due to
   // change in scope. i.e. $scope has been changed to $rootScope so
   //  events inside directives were not being caught.
@@ -206,10 +208,17 @@ angular.module('app.controllers', ['app.services','ngLodash','truncate','ngCordo
       console.log(res);
       // $rootScope.currentProduct = res.data;
       $scope.currentProduct = res.data;
-      resetProductModal();
-      $scope.productModal.show();
+      
+      if(angular.isUndefined($scope.productModal))
+         loadProductModal().show();
+      else {
+        resetProductModal();
+        $scope.productModal.show();
+      } 
+
     })
     PriceAPI.item.get({id: productId},function(data) {
+          
     });
     $http.get($rootScope.hostUrl + '/item/similar-category/' + productId + '/').then(function(data) {
         // $rootScope.currentSuggestions = data.data;
@@ -240,4 +249,4 @@ angular.module('app.controllers', ['app.services','ngLodash','truncate','ngCordo
 
 .controller('shareCtrl',['$scope',function($scope) {
 
-}])
+}]);
