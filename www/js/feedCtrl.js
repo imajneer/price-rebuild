@@ -18,7 +18,7 @@ angular.module('app.feedCtrl',['app.services','ngLodash','ngCordova'])
         $rootScope.user = {};
     
         if(localStorageService.keys()) {
-            $log.log('got keys from localStorage: ' + localStorageService.keys().length);
+            $log.log('got keys from localStorage', localStorageService.keys());
             $rootScope.user.photoUrl = localStorageService.get('photoUrl');
             $rootScope.user.id = localStorageService.get('userId');
             $rootScope.user.accessToken = localStorageService.get('accessToken');
