@@ -1,8 +1,9 @@
 angular.module('app.feedCtrl',['app.services','ngLodash','ngCordova'])
-.controller('feedCtrl',function($scope,$rootScope,$state,$ionicModal,$q,$filter,lodash,$ionicPlatform,PriceAPI,$ionicActionSheet,$ionicScrollDelegate,$http,localStorageService,$timeout,$ionicLoading,Favs,$log) {
+.controller('feedCtrl',function($scope,$rootScope,$state,$ionicModal,$q,$filter,lodash,$ionicPlatform,PriceAPI,$ionicActionSheet,$ionicScrollDelegate,$http,localStorageService,$timeout,$ionicLoading,Favs,$log,$window) {
 
 	 $log.log('loaded feed controller...');
     $scope.$on('$ionicView.beforeEnter',function() {
+        $window.alert('open safari debugger');
         $log.log('before enter...');
         if(localStorageService.get('accessToken')) {
 	        //should already be signed in

@@ -115,6 +115,7 @@ angular.module('app.services', ['ngResource','LocalStorageModule','ngLodash'])
 
             },
             error: function(xhr, status, error) {
+                $log.log(status);
                 $rootScope.incVal = 88;                
             }
             
