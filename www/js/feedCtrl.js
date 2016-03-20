@@ -33,12 +33,9 @@ angular.module('app.feedCtrl',['app.services','ngLodash','ngCordova'])
         $rootScope.products = [];
 //         var gender = localStorageService.get('gender');
         $rootScope.currentGender = 'male';
-        $rootScope.page_no = 0;
-		$scope.getCats();
-		
-		
-      $scope.loadModals();
-      $scope.loadNextPage();
+		$scope.getCats();	
+        $scope.loadModals();
+        $scope.refresh();
     });
 
   $rootScope.$watch('favs', function(newVal, oldVal){
@@ -64,20 +61,19 @@ angular.module('app.feedCtrl',['app.services','ngLodash','ngCordova'])
     }
 
     $rootScope.refresh = function()  {
-
 		  $rootScope.page_no = 0;
 	      $scope.loadNextPage();
     }
 
        $scope.loadNextPage = function() {
            $log.log('trying to load next page');
-	  if($scope.canReload) {           
-          $log.log('should load next page');
-          $rootScope.page_no = 1;
-          $scope.loadPage($rootScope.page_no);
-          $scope.canReload = false;
-		  $timeout(function() {
-          	$scope.canReload = true;
+           if($scope.canReload) {           
+               $log.log('should load next page');
+               $rootScope.page_no++;
+               $scope.loadPage($rootScope.page_no);
+               $scope.canReload = false;
+               $timeout(function() {
+               $scope.canReload = true;
 		  },300);
         }
 
