@@ -1,7 +1,7 @@
 angular.module('app.controllers', ['app.services','ngLodash','truncate','ngCordova','app.common'])
 
-.controller('heartCtrl',function($scope,$rootScope,Favs,lodash) {
-
+.controller('heartCtrl',function($scope,$rootScope,Favs,lodash,$log) {
+    $log.log('loaded heart controller');
      $scope.toggleFav = function(product) {
         console.log('should toggle fav');
         id = product.itemID ? product.itemID : (product.id ? product.id : product.pk);
@@ -17,18 +17,20 @@ angular.module('app.controllers', ['app.services','ngLodash','truncate','ngCordo
 
 })
 
-.controller('favoritesCtrl', function($scope, Favs) {
+.controller('favoritesCtrl', function($scope, Favs,$log) {
+    $log.log('loaded favs controller');
     $scope.$on('$ionicView.beforeEnter', function(){
-        console.log('shoud get favs...');
+        $log.log('about to get favs...');
         Favs.getList();
     });
-    console.log('loaded fav controller!');
 })
 
 
-.controller('accountCtrl', function($scope,$cordovaFacebook,$state,localStorageService,$rootScope,Util) {
+.controller('accountCtrl', function($scope,$cordovaFacebook,$state,localStorageService,$rootScope,Util,$log) {
+    $log.log('loaded account controller');
 	$scope.util = Util;
-    $scope.numFavs = $rootScope.favs.length;
+	if(angular.isDefined($rootscope.favs))
+        $scope.numFavs = $rootScope.favs.length;
 
     $scope.logout = function() {
         console.log('should logout...');
@@ -47,7 +49,7 @@ angular.module('app.controllers', ['app.services','ngLodash','truncate','ngCordo
 })
 
 .controller('itemViewCtrl',function($scope,$stateParams,$ionicLoading,$http,$rootScope,$state,Util,$ionicModal) {
-
+    console.log('loaded item view controller');
 	$scope.util = Util;
     $scope.card = {
         number: '4242424242424242',
@@ -59,7 +61,7 @@ angular.module('app.controllers', ['app.services','ngLodash','truncate','ngCordo
 		$state.go($rootScope.previousState);
 	}
 
-    console.log('loaded item view controller');
+    
 
     $scope.$on('$ionicView.beforeEnter',function() {
 		$http.get($rootScope.hostUrl + '/item/similar-category/' + $rootScope.prodId + '/').then(function(data) {
