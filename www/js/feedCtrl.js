@@ -1,15 +1,15 @@
 angular.module('app.feedCtrl',['app.services','ngLodash','ngCordova'])
-.controller('feedCtrl',function($scope,$rootScope,$state,$ionicModal,$q,$filter,lodash,$ionicPlatform,PriceAPI,$ionicActionSheet,$ionicScrollDelegate,$http,localStorageService,$timeout,$ionicLoading,Favs) {
+.controller('feedCtrl',function($scope,$rootScope,$state,$ionicModal,$q,$filter,lodash,$ionicPlatform,PriceAPI,$ionicActionSheet,$ionicScrollDelegate,$http,localStorageService,$timeout,$ionicLoading,Favs,$log) {
 
-	 console.log('loaded feed controller...');
+	 $log.log('loaded feed controller...');
     $scope.$on('$ionicView.beforeEnter',function() {
-        console.log('before enter...');
+        $log.log('before enter...');
         if(localStorageService.get('accessToken')) {
 	        //should already be signed in
         } else if(ionic.Platform.isIOS() || ionic.Platform.isAndroid())  {
 //        $state.go('signin'); //currently, Facebook login doesn't work
         }
-        if(!$rootScope.user) {
+        if(angular.isUndefined($rootScope.user)) {
             $rootScope.user = {};
         }
 
@@ -27,7 +27,7 @@ angular.module('app.feedCtrl',['app.services','ngLodash','ngCordova'])
 
         if (newVal !== oldVal) {
             if($scope.shouldRefresh){
-                console.log('trying to refresh again');
+                $log.log('trying to refresh again');
               $scope.shouldRefresh = false;
             }
           }
@@ -56,7 +56,7 @@ angular.module('app.feedCtrl',['app.services','ngLodash','ngCordova'])
 
     };
        $scope.loadNextPage = function() {
-        console.log('should load next page');
+        $log.log('should load next page');
             $rootScope.page_no = 1;
         if($rootScope.favs) {
             $scope.loadPage($rootScope.page_no);
@@ -67,7 +67,7 @@ angular.module('app.feedCtrl',['app.services','ngLodash','ngCordova'])
                    success: function(res) {
 
                         $rootScope.favs = angular.fromJson(res);
-                        console.log($rootScope.favs);
+                        $log.log($rootScope.favs);
                         for(var item in $rootScope.favs){
                             item.isFavorite = true; // ideally it can be set at server side
                         }
@@ -92,7 +92,7 @@ angular.module('app.feedCtrl',['app.services','ngLodash','ngCordova'])
         $ionicActionSheet.show({
         buttons: filterButtons,
         buttonClicked: function(index) {
-            console.log('clicked button');
+            $log.log('clicked button');
             $rootScope.sortBy = filterButtons[index].value;
             $rootScope.refresh();
             return true;
@@ -122,7 +122,7 @@ angular.module('app.feedCtrl',['app.services','ngLodash','ngCordova'])
     };
 
     $scope.selectedCategory = function(idx) {
-        console.log('selected category: ' + $scope.catNames[idx].name);
+        $log.log('selected category: ' + $scope.catNames[idx].name);
         $scope.setCategory($scope.catNames[idx].name);
     };
 
