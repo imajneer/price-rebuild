@@ -13,7 +13,13 @@ angular.module('app.filtersCtrl', ['app.services','ngLodash','truncate','ngCordo
             $rootScope.colors.push(color)
         }
 
-        
+        // Condition
+        $rootScope.condition = []
+        for(var cond in $rootScope.filter.condition){
+          if($rootScope.filter.condition[cond])
+            $rootScope.condition.push(cond)
+        }
+
         $state.go($rootScope.previousState);
         $rootScope.refresh();
     }
