@@ -1,7 +1,7 @@
 angular.module('app.filterCtrls', ['app.services','ngLodash','truncate','ngCordova'])
 
 .controller('filterCtrl',function($scope,$state,$rootScope) {
-    
+
     $scope.applyFilters = function() {
         $rootScope.min_price = $scope.slider.min;
         $rootScope.max_price = $scope.slider.max;
@@ -27,26 +27,29 @@ angular.module('app.filterCtrls', ['app.services','ngLodash','truncate','ngCordo
         options: {
             floor: 5,
             ceil: 1000,
-            step: 5
+            step: 5,
+            translate: function(value) {
+              return '$' + value;
+            }
         }
     };
     $rootScope.min_price = 5;
     $rootScope.max_price = 1000;
-    
+
 })
 
 .controller('colorCtrl',function($scope,$rootScope) {
-		
+
 })
 
 .controller('catCtrl',function($scope,$rootScope) {
-		
+
 })
 
 .controller('sizeCtrl',function($scope,$rootScope) {
-		
+
 })
 
 .controller('condCtrl',function($scope,$rootScope) {
-		
+
 })
