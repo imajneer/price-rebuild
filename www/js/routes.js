@@ -128,11 +128,11 @@ angular.module('app.routes',[])
     }
   })
 
-  .state('item', {
-      url: 'item',
-      templateUrl: 'templates/productDetails.html',
-      controller: 'itemViewCtrl'
-    })
+  // .state('item', {
+  //     url: 'item',
+  //     templateUrl: 'templates/productDetails.html',
+  //     controller: 'itemViewCtrl'
+  //   })
 
 
 

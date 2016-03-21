@@ -71,28 +71,21 @@ angular.module('app.controllers', ['app.services','ngLodash','truncate','ngCordo
             console.log(e);
         });
 	});
-	
-	    $scope.openSharing = function(product){
-      console.log('Sharing.....')
-      // $scope.shareModal.show();
-      $ionicModal.fromTemplateUrl('templates/share.html').then(function($ionicModal) {
-        $scope.shareModal = $ionicModal;
-        $scope.shareModal.show();
-      });
-    };
 
-    $scope.facebookShare = function(product){
+    $scope.facebookShare = function(){
       console.log('Sharing to fb...');
+      product = $rootScope.currentProduct
+      console.log(product);
       console.log($rootScope.currentProduct);
       window.plugins.socialsharing.shareViaFacebook($rootScope.currentProduct.title, $rootScope.currentProduct.photo_set[0].url_large, null /* url */, function() {console.log('share ok')}, function(errormsg){alert(errormsg)})
     };
-    $scope.twitterShare = function(product){
+    $scope.twitterShare = function(){
       window.plugins.socialsharing.shareViaTwitter($rootScope.currentProduct.title, $rootScope.currentProduct.photo_set[0].url_large, null /* url */, function() {console.log('share ok')}, function(errormsg){alert(errormsg)})
     };
-    $scope.instagramShare = function(product){
+    $scope.instagramShare = function(){
       window.plugins.socialsharing.shareViaInstagram($rootScope.currentProduct.title, $rootScope.currentProduct.photo_set[0].url_large, null /* url */, function() {console.log('share ok')}, function(errormsg){alert(errormsg)})
     };
-    $scope.pinterestShare = function(product){
+    $scope.pinterestShare = function(){
       window.plugins.socialsharing.shareViaPinterest($rootScope.currentProduct.title, $rootScope.currentProduct.photo_set[0].url_large, null /* url */, function() {console.log('share ok')}, function(errormsg){alert(errormsg)})
     };
 
@@ -204,7 +197,7 @@ angular.module('app.controllers', ['app.services','ngLodash','truncate','ngCordo
     $http.get($rootScope.hostUrl + '/item-details/' + productId+'/').then(function(res) {
       console.log('should get item data...');
       console.log(res);
-      // $rootScope.currentProduct = res.data;
+      $rootScope.currentProduct = res.data;
       $scope.currentProduct = res.data;
       resetProductModal();
       $scope.productModal.show();
@@ -226,9 +219,15 @@ angular.module('app.controllers', ['app.services','ngLodash','truncate','ngCordo
       $rootScope.activeSlide = 1;
       $ionicScrollDelegate.$getByHandle('suggestionScroller').scrollTo(0,0,false);
   }
+
   $scope.openSharing = function(product){
     console.log('Sharing.....')
-    $rootScope.shareModal.show();
+    // $scope.shareModal.show();
+    console.log($rootScope.currentProduct);
+    $ionicModal.fromTemplateUrl('templates/share.html').then(function($ionicModal) {
+      $scope.shareModal = $ionicModal;
+      $scope.shareModal.show();
+    });
   };
 
 })

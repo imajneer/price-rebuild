@@ -3,12 +3,12 @@ angular.module('app.feedCtrl',['app.services','ngLodash','ngCordova'])
 
 	 $log.log('loaded feed controller...');
     $scope.$on('$ionicView.beforeEnter',function() {
-        $window.alert('open safari debugger');
+        // $window.alert('open safari debugger');
         $log.log('before enter...');
         if(localStorageService.get('accessToken')) {
 	        //should already be signed in
         } else if(ionic.Platform.isIOS() || ionic.Platform.isAndroid())  {
-//        $state.go('signin'); //currently, Facebook login doesn't work
+       // $state.go('signin'); //currently, Facebook login doesn't work
         }
         if(angular.isUndefined($rootScope.user)) {
             $rootScope.user = {};
