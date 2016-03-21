@@ -3,7 +3,7 @@ angular.module('app.feedCtrl',['app.services','ngLodash','ngCordova'])
 
 	 $log.log('loaded feed controller...');
     $scope.$on('$ionicView.beforeEnter',function() {
-        $window.alert('open safari debugger');
+        // $window.alert('open safari debugger');
         $log.log('before enter...');
         if(localStorageService.get('accessToken')) {
 	        //should already be signed in
@@ -14,15 +14,15 @@ angular.module('app.feedCtrl',['app.services','ngLodash','ngCordova'])
             $rootScope.user = {};
         }
 
-        
+
         $scope.canReload = true;
         $rootScope.products = [];
         var gender = localStorageService.get('gender');
         $rootScope.currentGender = gender ? gender : 'male';
         $rootScope.page_no = 0;
 		$scope.getCats();
-		
-		
+
+
 /*
   $rootScope.$watch('favs', function(newVal, oldVal){
 
@@ -39,7 +39,7 @@ angular.module('app.feedCtrl',['app.services','ngLodash','ngCordova'])
     });
 
 	$scope.getCats = function() {
-        var gender = 'male'; //var gender = $rootScope.currentGender ? $rootScope.currentGender : $rootScope.user.gender ? $rootScope.user.gender : 'male'; 
+        var gender = 'male'; //var gender = $rootScope.currentGender ? $rootScope.currentGender : $rootScope.user.gender ? $rootScope.user.gender : 'male';
 		$scope.categories = PriceAPI.categories();
 		$scope.catNames = $scope.categories[gender];
 		$scope.catNames.splice(0,0,{'name':'all','img':'img/cats/all.svg'});
@@ -77,7 +77,7 @@ angular.module('app.feedCtrl',['app.services','ngLodash','ngCordova'])
                    }
                    });
             }
-        }    
+        }
     $scope.loadPage = function(page) {
         PriceAPI.loadPage(page);
     }
@@ -130,8 +130,5 @@ angular.module('app.feedCtrl',['app.services','ngLodash','ngCordova'])
     $scope.cancelFilter = function(){
         $state.go('tabs.feed');
     }
-    
-    $scope.applyFilters = function() {
-        $state.go('tabs.feed');
-    }
+
 });
