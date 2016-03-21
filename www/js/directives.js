@@ -164,6 +164,6 @@ angular.module('app.directives', ['app.controllers'])
     scope: {
     },
     templateUrl: 'templates/filter/top-bar.html',
-    controller: 'feedCtrl'
+    controller: 'filtersCtrl'
   }
 });

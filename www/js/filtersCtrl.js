@@ -1,10 +1,25 @@
-angular.module('app.filterCtrls', ['app.services','ngLodash','truncate','ngCordova'])
+angular.module('app.filtersCtrl', ['app.services','ngLodash','truncate','ngCordova'])
 
-.controller('filterCtrl',function($scope,$state,$rootScope) {
-    
+.controller('filtersCtrl',function($scope,$state,$rootScope) {
+    $rootScope.filter = []
     $scope.applyFilters = function() {
-        $rootScope.min_price = $scope.slider.min;
-        $rootScope.max_price = $scope.slider.max;
+        $rootScope.min_price = 0 //$scope.slider.min;
+        $rootScope.max_price = 500 //$scope.slider.max;
+        $rootScope.colors = []
+        console.log($rootScope.filter.colors )
+        // Colors
+        for(var color in $rootScope.filter.colors){
+          if($rootScope.filter.colors[color])
+            $rootScope.colors.push(color)
+        }
+
+        // Condition
+        $rootScope.condition = []
+        for(var cond in $rootScope.filter.condition){
+          if($rootScope.filter.condition[cond])
+            $rootScope.condition.push(cond)
+        }
+
         $state.go($rootScope.previousState);
         $rootScope.refresh();
     }
@@ -27,26 +42,29 @@ angular.module('app.filterCtrls', ['app.services','ngLodash','truncate','ngCordo
         options: {
             floor: 5,
             ceil: 1000,
-            step: 5
+            step: 5,
+            translate: function(value) {
+              return '$' + value;
+            }
         }
     };
     $rootScope.min_price = 5;
     $rootScope.max_price = 1000;
-    
+
 })
 
 .controller('colorCtrl',function($scope,$rootScope) {
-		
+  $rootScope.filter.colors = []
 })
 
 .controller('catCtrl',function($scope,$rootScope) {
-		
+
 })
 
 .controller('sizeCtrl',function($scope,$rootScope) {
-		
+
 })
 
 .controller('condCtrl',function($scope,$rootScope) {
-		
+  $rootScope.filter.condition = []
 })

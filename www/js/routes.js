@@ -27,21 +27,21 @@ angular.module('app.routes',[])
 
     })
 
-    
+
     .state('filters', {
 		url: '/filters',
 		templateUrl: 'templates/filters.html',
 		controller: 'filtersCtrl',
 		abstract:true
 	})
-	
+
 	.state('filters.menu', {
       url: '/filters/menu',
       templateUrl: 'templates/filters.html',
       controller: 'filterCtrl'
     })
 
-    
+
     .state('filters.price', {
       url: '',
       views: {
@@ -51,7 +51,7 @@ angular.module('app.routes',[])
       	}
       }
     })
-    
+
       .state('filters.size', {
       url: '',
       views: {
@@ -61,7 +61,7 @@ angular.module('app.routes',[])
       	}
       }
     })
-    
+
       .state('filters.category', {
       url: '',
       views: {
@@ -71,7 +71,7 @@ angular.module('app.routes',[])
       	}
       }
     })
-    
+
       .state('filters.color', {
       url: '',
       views: {
@@ -81,7 +81,7 @@ angular.module('app.routes',[])
       	}
       }
     })
-    
+
       .state('filters.condition', {
       url: '',
       views: {

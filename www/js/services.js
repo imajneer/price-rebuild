@@ -23,6 +23,8 @@ angular.module('app.services', ['ngResource','LocalStorageModule','ngLodash'])
         $log.log('category',$rootScope.currentCategory);
         $log.log('gender',$rootScope.currentGender);
         $log.log('sort',$rootScope.sortBy);
+        $log.log('colors', $rootScope.colors);
+        $log.log('condition', $rootScope.condition);
         return  {
                 'price_min' : angular.isDefined($rootScope.min_price) ? $rootScope.min_price : 0,
                 'price_max' : angular.isDefined($rootScope.max_price) ? $rootScope.max_price : '',
@@ -31,10 +33,10 @@ angular.module('app.services', ['ngResource','LocalStorageModule','ngLodash'])
                 'show_by': '20',
                 'type' : angular.isDefined($rootScope.currentGender) ? $rootScope.currentGender : 'male',
                 //sorting defaults to recently added
-                'sort' : angular.isDefined($rootScope.sortBy) ? $rootScope.sortBy : ''
+                'sort' : angular.isDefined($rootScope.sortBy) ? $rootScope.sortBy : '',
 
-//                 'colors':['blue'] //colors may not be working yet
-
+                'colors': angular.isDefined($rootScope.colors) ? $rootScope.colors : [], //colors may not be working yet
+                'condtion': angular.isDefined($rootScope.condition) ? $rootScope.condition : [] // Not sure if its being accepted at API end.
 
             }
         }
