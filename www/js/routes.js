@@ -92,6 +92,15 @@ angular.module('app.routes',[])
       }
     })
 
+    .state('filters.gender', {
+    url: '',
+    views: {
+      'menuContent' :{
+      templateUrl: 'templates/filter/gender.html',
+      controller: 'genderCtrl'
+      }
+    }
+  })
   .state('tabs', {
     url: '/',
     templateUrl: 'templates/price.html',

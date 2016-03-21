@@ -1,0 +1,29 @@
+<ion-view title="Gender Switch" left-buttons="leftButtons">
+        <ion-content padding="false" class="filters-rightside">
+          <pr-top-bar></pr-top-bar>
+				<ion-list>
+				<div class="item item-divider filters-dividers">
+			    	Gender Switch
+			  	</div>
+			  	</div>
+					<div class="row">
+						<div class="col filters-col">
+              <ion-radio class="checkbox-stable" ng-model="filterGender" ng-value="male">Male -- {{filterGender}}</ion-radio>
+						</div>
+						<div class="col filters-col">
+							<ion-radio class="checkbox-stable" ng-model="filterGender" ng-value="female">Female</ion-radio>
+						</div>
+					</div>
+          <div class="row">
+            <ion-radio ng-model="choice" ng-value="'A'">Choose A--{{choice}}</ion-radio>
+          </div>
+          <div class="row">
+            <ion-radio ng-model="choice" ng-value="'B'">Choose B--{{choice}}</ion-radio>
+          </div>
+          <div class="row">
+            <ion-radio ng-model="choice" ng-value="'C'">Choose C--{{choice}}</ion-radio>
+          </div>
+				</ion-list>
+			<button class="button button-calm filters-clearbutton">Clear Colors</button>
+        </ion-content>
+      </ion-view>
